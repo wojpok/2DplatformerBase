@@ -103,11 +103,7 @@ int main( void )
 		
 
 		// Compute the MVP matrix from keyboard and mouse input
-		glm::mat4 ProjectionMatrix = getProjectionMatrix();
-		glm::mat4 ViewMatrix = getViewMatrix();
-		glm::mat4 ModelMatrix = glm::mat4(1);
-		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-		MVP = glm::scale(MVP, glm::vec3(0.125f, 0.125f, 0.125f));
+		
 		
 		
 		
