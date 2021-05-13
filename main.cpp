@@ -11,12 +11,19 @@
 //#include "view/shaders.hpp"
 #include "blocks/blocks.hpp"
 #include "blocks/animators.hpp"
+#include "controller/chunk.hpp"
 
+
+void mainloop() {
+	//std::cout<<view::frameCnt<<std::endl;
+}
 
 int main() {
 	std::cout<<" Welcome to 2D platformer "<<std::endl;
 	
 	view::createContext();
+	
+	obj::initStatics();
 	
 	view::shader sh;
 
@@ -28,17 +35,17 @@ int main() {
 	basic->MVPID = glGetUniformLocation(basic->Shader, "MVP");
 	basic->PosID = glGetUniformLocation(basic->Shader, "offset");
 	
-	GLuint grass = view::loadBMP_custom("blocks/simplegrass.bmp");
-	GLuint stone = view::loadBMP_custom("blocks/simplestone.bmp");
+	/*GLuint grass = view::loadBMP_custom("blocks/simplegrass.bmp");
+	GLuint stone = view::loadBMP_custom("blocks/simplestone.bmp");*/
+	glm::mat4 offset = glm::mat4(1);	
+	view::refreshFuncSet(mainloop);
 	
-	glm::mat4 none = glm::mat4(1);
-	
-	glm::mat4 offset = glm::mat4(1);
-	
-	obj::animator *anime = new obj::staticAnimator(stone);
-	obj::block *stoneb = new obj::stone();
-	
-	basic->bindTexture(grass);
+	con::chunk ch;
+	for(int i = 0 ; i < 16; i++) {
+		for(int f = 0; f < 16; f++) {
+			ch.setBlock(f, i, new obj::stone());
+		}
+	}
 	
 	do { 
 		view::clearFrame();
@@ -53,14 +60,23 @@ int main() {
 		
 		basic->useProgram();	
 		basic->bindMVP(MVP);
-		basic->bindPos(offset);
 		
-		anime->stateFunction(stoneb);
-		basic->bindTexture(anime->getTexture(stoneb));
+
+		//offset[3][2] += view::deltaTime;
+		//offset[3][1] += view::deltaTime;
+		obj::block* b;
 		
-		offset[3][2] += view::deltaTime;
-		
-		view::block->draw();
+		for(int x = 0; x < 16; x++) {
+			for(int y = 0; y < 16; y++) {
+				b = ch.getBlock(x, y);
+				if(NULL != b) {
+					basic->bindTexture(b->gAnim()->getTexture(b));
+					offset = ch.ltCorner * *ch.getOffset(x, y);
+					basic->bindPos(offset);
+					view::block->draw();
+				}
+			}
+		}
 		
 		view::pushFrame();
 	}

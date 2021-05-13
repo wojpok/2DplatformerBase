@@ -4,10 +4,10 @@ LFLAGS = -lm -lGL -lGLU -lglut -lglfw -lGLEW
 
 NAME = demo
 
-SRC =  main.cpp blocks/blocks.cpp view/opengl.cpp view/loader.cpp view/frame.cpp view/shaders.cpp blocks/animators.cpp
-DEPS = blocks/blocks.hpp view/opengl.hpp view/shaders.hpp blocks/animators.hpp
+SRC =  main.cpp blocks/blocks.cpp view/opengl.cpp view/loader.cpp view/frame.cpp view/shaders.cpp blocks/animators.cpp controller/chunk.cpp
+DEPS = blocks/blocks.hpp view/opengl.hpp view/shaders.hpp blocks/animators.hpp controller/chunk.hpp
 # nazwy wszystkich plikow zrodlowych
-OBJS = main.o blocks/blocks.o view/opengl.o view/loader.o view/frame.o view/shaders.o blocks/animators.o
+OBJS = main.o blocks/blocks.o view/opengl.o view/loader.o view/frame.o view/shaders.o blocks/animators.o controller/chunk.o
 # nazwy wszystkich modulow
 YOU: $(SRC) $(NAME)
 

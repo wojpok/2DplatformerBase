@@ -47,6 +47,17 @@ namespace view {
 
 	int blockInd = 0;
 	
+	
+	int frameCnt = 1;
+	float timeElapsed = 0;
+	float frameL = 1;
+	
+	void (*refreshFunc)();
+	
+	void refreshFuncSet(void (*ptr)()) {
+		refreshFunc = ptr;
+	}
+	
 	void computeMatricesFromInputs(){
 
 		// glfwGetTime is called only once, the first time this function is called
@@ -55,6 +66,12 @@ namespace view {
 		// Compute time difference between current and last frame
 		double currentTime = glfwGetTime();
 		deltaTime = float(currentTime - lastTime);
+
+		if((timeElapsed += deltaTime) > frameL) {
+			frameCnt++;
+			timeElapsed -= frameL;
+			refreshFunc();
+		}
 
 		// Get mouse position
 		double xpos = 0 , ypos = 0;

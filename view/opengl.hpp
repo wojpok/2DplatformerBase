@@ -4,12 +4,15 @@
 namespace view {
 	extern GLFWwindow* window;
 	extern float deltaTime;
+	extern int frameCnt;
 	
 	void createContext();
 	void clearFrame();
 	void pushFrame();
 	bool isContextOpen();
 	void clearContext();
+
+	void refreshFuncSet(void (*ptr)());
 
 	class shader {
 	public:

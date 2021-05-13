@@ -16,4 +16,17 @@ namespace obj {
 		
 	void staticAnimator::stateFunction(block *b) {}
 	GLuint staticAnimator::getTexture(block* b) {return texture; }
+	
+	
+	synchronusLoopedAnimator::synchronusLoopedAnimator(GLuint* t, int len) {
+		l = len;
+		textures = t;
+	}
+	
+	synchronusLoopedAnimator::~synchronusLoopedAnimator() {}
+		
+	void synchronusLoopedAnimator::stateFunction(block *b) {}
+	GLuint synchronusLoopedAnimator::getTexture(block *b) {
+		return textures[view::frameCnt%l];
+	}
 }

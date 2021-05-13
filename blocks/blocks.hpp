@@ -8,7 +8,9 @@ namespace obj {
 	class block {
 	public:
 		const uint8_t id = 0;
-		static const animator* anim;
+		static animator* anim;
+		
+		virtual animator* gAnim();
 		
 		virtual float getTime();
 		virtual int   getState();
@@ -18,7 +20,9 @@ namespace obj {
 	class stone : public block {
 	public:	
 		const uint8_t id = 2;
-		static const animator* anim;
+		static animator* anim;
+		animator* gAnim() override;
+		//static animator* anim;
 		/*float getTime();
 		int   getState();
 		void  setState();*/
@@ -27,12 +31,12 @@ namespace obj {
 	class lamp : public block {
 	public:
 		const uint8_t id = 5;
-		static const animator* anim;
+		static animator* anim;
 		
 		lamp();
-		float getTime();
-		int   getState();
-		void  setState(int s);
+		float getTime() override;
+		int   getState() override;
+		void  setState(int s) override;
 		
 		float time;
 		int state;
