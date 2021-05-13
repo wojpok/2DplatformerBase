@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include <cstdint>
 
 #include <GL/glew.h>
@@ -29,6 +30,7 @@ int main() {
 
 	view::shader *basic = &sh; 
 	
+	view::frameL = 0.5;
 	
 	basic->Shader = view::LoadShaders("view/basicVertex.glsl","view/basicFragment.glsl");
 	basic->TextureID = glGetUniformLocation(basic->Shader, "myTextureSampler");
@@ -43,9 +45,21 @@ int main() {
 	con::chunk ch;
 	for(int i = 0 ; i < 16; i++) {
 		for(int f = 0; f < 16; f++) {
-			ch.setBlock(f, i, new obj::stone());
+			ch.setBlock(f, i, new obj::lamp());
 		}
 	}
+	
+	/*for(int i = 0 ; i < 8; i++) {
+		for(int f = 8; f < 16; f++) {
+			ch.setBlock(f, i, new obj::fan());
+		}
+	}
+	
+	for(int i = 8 ; i < 16; i++) {
+		for(int f = 0; f < 8; f++) {
+			ch.setBlock(f, i, new obj::random());
+		}
+	}*/
 	
 	do { 
 		view::clearFrame();
@@ -70,6 +84,7 @@ int main() {
 			for(int y = 0; y < 16; y++) {
 				b = ch.getBlock(x, y);
 				if(NULL != b) {
+					b->gAnim()->stateFunction(b);
 					basic->bindTexture(b->gAnim()->getTexture(b));
 					offset = ch.ltCorner * *ch.getOffset(x, y);
 					basic->bindPos(offset);

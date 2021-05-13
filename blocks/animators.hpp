@@ -34,6 +34,16 @@ namespace obj {
 		GLuint getTexture(block *b) override;
 	};
 	
+	class asynchronousStateAnimator : public animator {
+	public:
+		GLuint *textures;
+		int l;
+		asynchronousStateAnimator(GLuint* t, int len);
+		~asynchronousStateAnimator();
+		
+		void stateFunction(block *b) override;
+		GLuint getTexture(block *b) override;
+	};
 }
 
 #endif

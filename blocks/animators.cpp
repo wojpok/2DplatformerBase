@@ -29,4 +29,12 @@ namespace obj {
 	GLuint synchronusLoopedAnimator::getTexture(block *b) {
 		return textures[view::frameCnt%l];
 	}
+	
+	
+	asynchronousStateAnimator::asynchronousStateAnimator(GLuint* t, int len) 
+	{textures = t; l = len; }
+	asynchronousStateAnimator::~asynchronousStateAnimator(){};
+	
+	void asynchronousStateAnimator::stateFunction(block *b) {b->updateState();}
+	GLuint asynchronousStateAnimator::getTexture(block *b) {return textures[b->getState()];}
 }

@@ -12,31 +12,40 @@ namespace obj {
 		
 		virtual animator* gAnim();
 		
-		virtual float getTime();
+		virtual void  updateState();
 		virtual int   getState();
-		virtual void  setState(int s);
 	};
 	
-	class stone : public block {
+	class fan : public block {
 	public:	
 		const uint8_t id = 2;
 		static animator* anim;
 		animator* gAnim() override;
-		//static animator* anim;
-		/*float getTime();
-		int   getState();
-		void  setState();*/
 	};
 	
-	class lamp : public block {
+	class random : public block {
 	public:
 		const uint8_t id = 5;
 		static animator* anim;
 		
+		random();
+		virtual void  updateState() override;
+		virtual int   getState() override;
+		animator* gAnim() override;
+		
+		float time;
+		int state;
+	};
+	
+	class lamp : public random {
+	public:
+		const uint8_t id = 7;
+		static animator* anim;
+		
 		lamp();
-		float getTime() override;
-		int   getState() override;
-		void  setState(int s) override;
+		virtual void  updateState() override;
+		virtual int   getState() override;
+		animator* gAnim() override;
 		
 		float time;
 		int state;

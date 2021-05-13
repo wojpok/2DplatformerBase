@@ -4,7 +4,6 @@
 //class block;
 
 namespace con {
-	
 	class chunk {
 	public:
 		static const int dimensions = 16;
@@ -20,8 +19,13 @@ namespace con {
 		
 		void setBlock(int x, int y, obj::block* inst);
 		obj::block* getBlock(int x, int y);
+		obj::block* asyncGetBlock(int x, int y);
 		glm::mat4*  getOffset(int x, int y);
 	};
+	
+	extern chunk* curr;
+	extern int cX;
+	extern int cY;
 }
 
 #endif

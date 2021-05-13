@@ -4,6 +4,7 @@
 namespace view {
 	extern GLFWwindow* window;
 	extern float deltaTime;
+	extern float frameL;
 	extern int frameCnt;
 	
 	void createContext();

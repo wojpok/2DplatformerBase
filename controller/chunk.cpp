@@ -17,6 +17,10 @@
 
 namespace con {
 	
+	chunk* curr = NULL;
+	int cX = 0;
+	int cY = 0;
+	
 	glm::mat4** chunk::offsets = NULL;
 	
 	chunk::chunk() {
@@ -40,12 +44,24 @@ namespace con {
 	}
 	
 	void chunk::setBlock(int x, int y, obj::block* inst) {
+		curr = this;
+		cX = x;
+		cY = y;
 		blocks[y*dimensions+x] = inst;
 	}
 	
 	obj::block* chunk::getBlock(int x, int y) {
-		return blocks[y*dimensions +x];
+		curr = this;
+		cX = x;
+		cY = y;
+		return blocks[(y)*dimensions +(x)];
 	}
+	
+	obj::block* chunk::asyncGetBlock(int x, int y) {
+		if(x < 0 || y < 0 || x > 15 || y > 15) return NULL;
+		return blocks[(y)*dimensions +(x)];
+	}
+	
 	
 	void chunk::setPos(int x, int y) {
 		ltCorner[3][2] = x;
