@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdint>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -7,8 +8,9 @@
 #include <glm/gtx/transform.hpp>
 
 #include "view/opengl.hpp"
+//#include "view/shaders.hpp"
 #include "blocks/blocks.hpp"
-
+#include "blocks/animators.hpp"
 
 
 int main() {
@@ -16,21 +18,27 @@ int main() {
 	
 	view::createContext();
 	
-	view::shader basic; 
-	basic.Shader = view::LoadShaders("view/basicVertex.glsl","view/basicFragment.glsl");
-	basic.TextureID = glGetUniformLocation(basic.Shader, "myTextureSampler");
-	basic.MVPID = glGetUniformLocation(basic.Shader, "MVP");
-	basic.PosID = glGetUniformLocation(basic.Shader, "offset");
+	view::shader sh;
+
+	view::shader *basic = &sh; 
+	
+	
+	basic->Shader = view::LoadShaders("view/basicVertex.glsl","view/basicFragment.glsl");
+	basic->TextureID = glGetUniformLocation(basic->Shader, "myTextureSampler");
+	basic->MVPID = glGetUniformLocation(basic->Shader, "MVP");
+	basic->PosID = glGetUniformLocation(basic->Shader, "offset");
 	
 	GLuint grass = view::loadBMP_custom("blocks/simplegrass.bmp");
+	GLuint stone = view::loadBMP_custom("blocks/simplestone.bmp");
 	
 	glm::mat4 none = glm::mat4(1);
 	
 	glm::mat4 offset = glm::mat4(1);
 	
+	obj::animator *anime = new obj::staticAnimator(stone);
+	obj::block *stoneb = new obj::stone();
 	
-		basic.bindTexture(grass);
-	
+	basic->bindTexture(grass);
 	
 	do { 
 		view::clearFrame();
@@ -43,12 +51,16 @@ int main() {
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 		MVP = glm::scale(MVP, glm::vec3(0.125f, 0.125f, 0.125f));
 		
-		basic.useProgram();	
-		basic.bindMVP(MVP);
-		basic.bindPos(offset);
-		offset[3][2] += view::getDeltaTime()*10;
+		basic->useProgram();	
+		basic->bindMVP(MVP);
+		basic->bindPos(offset);
 		
-		view::getBlock()->draw();
+		anime->stateFunction(stoneb);
+		basic->bindTexture(anime->getTexture(stoneb));
+		
+		offset[3][2] += view::deltaTime;
+		
+		view::block->draw();
 		
 		view::pushFrame();
 	}

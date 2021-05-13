@@ -2,16 +2,15 @@
 #define OPENGL_HPP_
 
 namespace view {
-	static GLFWwindow* window;
+	extern GLFWwindow* window;
+	extern float deltaTime;
 	
 	void createContext();
 	void clearFrame();
 	void pushFrame();
 	bool isContextOpen();
 	void clearContext();
-	
-	float getDeltaTime();
-	
+
 	class shader {
 	public:
 		GLuint Shader;
@@ -21,7 +20,7 @@ namespace view {
 		
 		void useProgram();
 		void bindTexture(GLuint Texture);
-		void bindMVP(glm::mat4 MVP);
+		virtual void bindMVP(glm::mat4 MVP); //Trzeba to wywołać w każdej klatce, ale tylko raz
 		void bindPos(glm::mat4 Pos);
 		
 	};
@@ -37,8 +36,7 @@ namespace view {
 		~shape();
 	};
 	
-	static shape* block;
-	shape* getBlock();
+	extern shape* block;
 	
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
