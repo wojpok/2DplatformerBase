@@ -16,6 +16,7 @@
 namespace obj {
 	void block::updateState() {}
 	int   block::getState() {return 0;}
+	void block::interState() {}
 	animator* block::gAnim() {return this->anim;}
 	
 	animator* block::anim = new staticAnimator(0);
@@ -25,6 +26,7 @@ namespace obj {
 	random::random() {state = rand()%3;}
 	int random::getState() {return state;}
 	void random::updateState() {}
+	void random::interState() {}
 	animator* random::gAnim() {return anim;}
 	animator* random::anim = new asynchronousStateAnimator(t2,3);
 	
@@ -32,29 +34,27 @@ namespace obj {
 	
 	lamp::lamp() {
 		time = 0; state = 0;
-		if((con::cX == 7 && con::cY >= 6 && con::cY <= 8)
+		/*if((con::cX == 7 && con::cY >= 6 && con::cY <= 8)
 		|| (con::cY == 6 && con::cX == 6)
-		|| (con::cY == 7 && con::cX == 5)) state = 1;
+		|| (con::cY == 7 && con::cX == 5)) state = 1;*/
+		state = rand() % 2;
 	}
 	int lamp::getState() {return (state & 1);}
-	void lamp::updateState() {
-		time += view::deltaTime;
-		if(time > 0.5) {
-			time -= 0.5;	
-			if(view::frameCnt%2 == 0) {
-				int n = 0;
-				for(int i = -1; i < 2; i++) {
-					for(int j = -1; j < 2; j++) {
-							block* neigh = con::curr->asyncGetBlock(con::cX+i, con::cY+j);
-							if(neigh != NULL)
-								n += (neigh->getState()&1);
-					}
+	void lamp::updateState() {}
+	void lamp::interState() {
+		if(view::frameCnt%2 == 0) {
+			int n = 0;
+			for(int i = -1; i < 2; i++) {
+				for(int j = -1; j < 2; j++) {
+						block* neigh = con::curr->asyncGetBlock(con::cX+i, con::cY+j);
+						if(neigh != NULL)
+							n += (neigh->getState()&1);
 				}
-				state = ((((state == 0) ? (n == 3) : (n >= 3 && n <= 4))<<1) | state) ;
 			}
-			else {
-				state = (state >> 1);
-			}
+			state = ((((state == 0) ? (n == 3) : (n >= 3 && n <= 4))<<1) | state) ;
+		}
+		else {
+			state = (state >> 1);
 		}
 	}
 	animator* lamp::gAnim() {return anim;}

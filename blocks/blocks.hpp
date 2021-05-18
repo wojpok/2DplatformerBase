@@ -13,6 +13,7 @@ namespace obj {
 		virtual animator* gAnim();
 		
 		virtual void  updateState();
+		virtual void  interState();
 		virtual int   getState();
 	};
 	
@@ -31,6 +32,7 @@ namespace obj {
 		random();
 		virtual void  updateState() override;
 		virtual int   getState() override;
+		virtual void  interState() override;
 		animator* gAnim() override;
 		
 		float time;
@@ -45,6 +47,7 @@ namespace obj {
 		lamp();
 		virtual void  updateState() override;
 		virtual int   getState() override;
+		virtual void  interState() override;
 		animator* gAnim() override;
 		
 		float time;

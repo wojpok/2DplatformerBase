@@ -6,7 +6,7 @@
 namespace con {
 	class chunk {
 	public:
-		static const int dimensions = 16;
+		static const int dimensions;
 		static glm::mat4** offsets;
 		
 		chunk();

@@ -163,7 +163,10 @@ namespace view {
 	}
 	
 	void shader::bindPos(glm::mat4 Pos) {
-		glUniformMatrix4fv(PosID, 1, GL_FALSE, &Pos[0][0]);
+		glUniformMatrix4fv(Pos1ID, 1, GL_FALSE, &Pos[0][0]);
+	}
+	void shader::bindPos2(glm::mat4 Pos) {
+		glUniformMatrix4fv(Pos2ID, 1, GL_FALSE, &Pos[0][0]);
 	}
 	
 	void shader::useProgram() {glUseProgram(Shader); }

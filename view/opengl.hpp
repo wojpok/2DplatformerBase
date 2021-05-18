@@ -19,14 +19,15 @@ namespace view {
 	public:
 		GLuint Shader;
 		GLuint MVPID;
-		GLuint PosID;
+		GLuint Pos1ID;
+		GLuint Pos2ID;
 		GLuint TextureID;
 		
 		void useProgram();
 		void bindTexture(GLuint Texture);
 		virtual void bindMVP(glm::mat4 MVP); //Trzeba to wywołać w każdej klatce, ale tylko raz
 		void bindPos(glm::mat4 Pos);
-		
+		void bindPos2(glm::mat4 Pos);
 	};
 	
 	class shape {

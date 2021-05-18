@@ -15,8 +15,18 @@
 #include "controller/chunk.hpp"
 
 
+con::chunk *ch;
+
 void mainloop() {
-	//std::cout<<view::frameCnt<<std::endl;
+	for(int x = 0; x < con::chunk::dimensions; x++) {
+			obj::block *b;
+			for(int y = 0; y < con::chunk::dimensions; y++) {
+				b = ch->getBlock(x, y);
+				if(NULL != b) {
+					b->interState();
+			}
+		}
+	}
 }
 
 int main() {
@@ -35,17 +45,23 @@ int main() {
 	basic->Shader = view::LoadShaders("view/basicVertex.glsl","view/basicFragment.glsl");
 	basic->TextureID = glGetUniformLocation(basic->Shader, "myTextureSampler");
 	basic->MVPID = glGetUniformLocation(basic->Shader, "MVP");
-	basic->PosID = glGetUniformLocation(basic->Shader, "offset");
+	basic->Pos1ID = glGetUniformLocation(basic->Shader, "offset");
+	basic->Pos2ID = glGetUniformLocation(basic->Shader, "offset2");
 	
 	/*GLuint grass = view::loadBMP_custom("blocks/simplegrass.bmp");
 	GLuint stone = view::loadBMP_custom("blocks/simplestone.bmp");*/
 	glm::mat4 offset = glm::mat4(1);	
 	view::refreshFuncSet(mainloop);
 	
-	con::chunk ch;
-	for(int i = 0 ; i < 16; i++) {
-		for(int f = 0; f < 16; f++) {
-			ch.setBlock(f, i, new obj::lamp());
+	ch = new con::chunk();
+	
+	for(int i = 0 ; i < con::chunk::dimensions; i++) {
+		for(int f = 0; f < con::chunk::dimensions; f++) {
+			//ch->setBlock(f, i, new obj::lamp());
+			if(rand()%2 == 0)
+				ch->setBlock(f, i, new obj::fan());
+			else
+				ch->setBlock(f, i, new obj::random());
 		}
 	}
 	
@@ -80,14 +96,16 @@ int main() {
 		//offset[3][1] += view::deltaTime;
 		obj::block* b;
 		
-		for(int x = 0; x < 16; x++) {
-			for(int y = 0; y < 16; y++) {
-				b = ch.getBlock(x, y);
+		basic->bindPos(ch->ltCorner);
+		
+		for(int x = 0; x < con::chunk::dimensions; x++) {
+			for(int y = 0; y < con::chunk::dimensions; y++) {
+				b = ch->getBlock(x, y);
 				if(NULL != b) {
 					b->gAnim()->stateFunction(b);
 					basic->bindTexture(b->gAnim()->getTexture(b));
-					offset = ch.ltCorner * *ch.getOffset(x, y);
-					basic->bindPos(offset);
+					basic->bindPos2(*ch->getOffset(x, y));
+					
 					view::block->draw();
 				}
 			}

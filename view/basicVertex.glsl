@@ -10,11 +10,12 @@ out vec2 UV;
 // Values that stay constant for the whole mesh.
 uniform mat4 MVP;
 uniform mat4 offset;
+uniform mat4 offset2;
 
 void main(){
 
 	// Output position of the vertex, in clip space : MVP * position
-	gl_Position =  MVP * offset * vec4(vertexPosition_modelspace,1);
+	gl_Position =  MVP * offset * offset2 * vec4(vertexPosition_modelspace,1);
 	
 	// UV of the vertex. No special space for this one.
 	UV = vertexUV;

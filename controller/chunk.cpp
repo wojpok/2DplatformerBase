@@ -17,6 +17,8 @@
 
 namespace con {
 	
+	 const int chunk::dimensions = 128;
+	
 	chunk* curr = NULL;
 	int cX = 0;
 	int cY = 0;
@@ -25,20 +27,20 @@ namespace con {
 	
 	chunk::chunk() {
 		if(offsets == NULL) {
-			offsets = new glm::mat4*[256];
-			for(int y = 0; y < 16; y++) {
-				for(int x = 0 ; x < 16; x++) {
+			offsets = new glm::mat4*[dimensions*dimensions];
+			for(int y = 0; y < dimensions; y++) {
+				for(int x = 0 ; x < dimensions; x++) {
 					glm::mat4* id = new glm::mat4(1);
 					(*id)[3][2] = 2*x; (*id)[3][1] = 2*y;
 					
 					//offsets[y*dimensions+x] = id;
-					offsets[y*16+x] = id;
+					offsets[y*dimensions+x] = id;
 				}
 			}
 		}
 		
-		blocks = (obj::block**)calloc(sizeof(obj::block*),256);
-		for(int i = 0; i < 256; i++)
+		blocks = (obj::block**)calloc(sizeof(obj::block*),dimensions*dimensions);
+		for(int i = 0; i < dimensions*dimensions; i++)
 			blocks[i] = NULL;
 		ltCorner = glm::mat4(1);
 	}
@@ -58,7 +60,7 @@ namespace con {
 	}
 	
 	obj::block* chunk::asyncGetBlock(int x, int y) {
-		if(x < 0 || y < 0 || x > 15 || y > 15) return NULL;
+		if(x < 0 || y < 0 || x >= dimensions || y >= dimensions) return NULL;
 		return blocks[(y)*dimensions +(x)];
 	}
 	
