@@ -17,7 +17,7 @@
 
 namespace con {
 	
-	 const int chunk::dimensions = 128;
+	 const int chunk::dimensions = 1024;
 	
 	chunk* curr = NULL;
 	int cX = 0;
