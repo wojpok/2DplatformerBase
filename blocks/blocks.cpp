@@ -26,6 +26,26 @@ namespace obj {
 	animator* grass::anim = new staticAnimator({3, 1});
 	animator* grass::gAnim() {return this->anim;}
 	
+	animator* dirt::anim = new staticAnimator({3, 2});
+	animator* dirt::gAnim() {return this->anim;}
+	
+	animator* leaf::anim = new staticAnimator({1, 2});
+	animator* leaf::gAnim() {return this->anim;}
+	
+	animator* water_surface::anim = new synchronusLoopedAnimator(arr1, 3);
+	animator* water_surface::gAnim() {return this->anim;}
+	
+	UVoffset arr2[4] = {{1, 0}, {1, 1}, {2, 2}, {2, 3}};
+	
+	stone::stone() { 
+		state = rand() % 10;
+		if(state > 3) state = 2;
+	}
+	int stone::getState() {return state;}
+	animator* stone::anim = new multiStableAnimator(arr2, 4);
+	animator* stone::gAnim() {return this->anim;}
+	
+	
 	/*GLuint *t2 = new GLuint[3];
 	
 	random::random() {state = rand()%3;}

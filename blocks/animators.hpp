@@ -30,27 +30,27 @@ namespace obj {
 		UVoffset getTexture(block* b)  override;
 	};
 	
-	/*class synchronusLoopedAnimator : public animator {
+	class synchronusLoopedAnimator : public animator {
 	public:
-		GLuint *textures;
+		UVoffset* uv; 
 		int l;
-		synchronusLoopedAnimator(GLuint* t, int len);
+		synchronusLoopedAnimator(UVoffset* t, int len);
 		~synchronusLoopedAnimator();
 		
 		void stateFunction(block *b) override;
-		GLuint getTexture(block *b) override;
+		UVoffset getTexture(block *b) override;
 	};
 	
-	class asynchronousStateAnimator : public animator {
+	class multiStableAnimator : public animator {
 	public:
-		GLuint *textures;
+		UVoffset* uv; 
 		int l;
-		asynchronousStateAnimator(GLuint* t, int len);
-		~asynchronousStateAnimator();
+		multiStableAnimator(UVoffset* t, int len);
+		~multiStableAnimator();
 		
 		void stateFunction(block *b) override;
-		GLuint getTexture(block *b) override;
-	};*/
+		UVoffset getTexture(block *b) override;
+	};
 }
 
 #endif

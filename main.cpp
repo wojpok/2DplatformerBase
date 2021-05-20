@@ -67,6 +67,24 @@ int main() {
 	
 	ch->setBlock(1, 1, new obj::block());
 	ch->setBlock(2, 2, new obj::grass());
+	ch->setBlock(3, 2, new obj::grass());
+	ch->setBlock(1, 2, new obj::grass());
+	ch->setBlock(1, 1, new obj::dirt());
+	ch->setBlock(2, 1, new obj::dirt());
+	ch->setBlock(3, 1, new obj::dirt());
+	ch->setBlock(2, 3, new obj::leaf());
+	
+	for(int i = 4 ; i < con::chunk::dimensions; i++) {
+		for(int f = 4; f < con::chunk::dimensions; f++) {
+			ch->setBlock(f, i, new obj::stone());
+			/*if(rand()%2 == 0)
+				ch->setBlock(f, i, new obj::fan());
+			else
+				ch->setBlock(f, i, new obj::random());*/
+		}
+	}
+	
+	//ch->setBlock(0, 0, new obj::water_surface());
 	
 	glm::vec3 *off = new glm::vec3[con::chunk::dimensions*con::chunk::dimensions];
 	for(int i = 0; i < con::chunk::dimensions*con::chunk::dimensions; i++) {

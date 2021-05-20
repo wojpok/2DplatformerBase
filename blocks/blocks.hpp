@@ -21,36 +21,43 @@ namespace obj {
 	public:
 		const uint8_t id = 1;
 		static animator* anim;	
-		virtual animator* gAnim();
-		
-		/*virtual void  updateState();
-		virtual void  interState();
-		virtual int   getState();*/
+		animator* gAnim();
 	};
 	
-	/*class fan : public block {
-	public:	
+	class dirt : public block {
+	public:
 		const uint8_t id = 2;
-		static animator* anim;
-		animator* gAnim() override;
+		static animator* anim;	
+		animator* gAnim();
 	};
 	
-	class random : public block {
+	class leaf : public block {
 	public:
 		const uint8_t id = 5;
+		static animator* anim;	
+		animator* gAnim();
+	};
+	
+	class water_surface : public block {
+	public:	
+		const uint8_t id = 7;
+		static animator* anim;
+		animator* gAnim();
+	};
+	
+	class stone : public block {
+	public:
+		const uint8_t id = 3;
 		static animator* anim;
 		
-		random();
-		virtual void  updateState() override;
+		stone();
 		virtual int   getState() override;
-		virtual void  interState() override;
 		animator* gAnim() override;
 		
-		float time;
 		int state;
 	};
 	
-	class lamp : public random {
+	/*class lamp : public random {
 	public:
 		const uint8_t id = 7;
 		static animator* anim;

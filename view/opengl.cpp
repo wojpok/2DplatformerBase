@@ -89,7 +89,7 @@ namespace view {
 		
 		//offsetting UV for easier atlas-texture-borders anti aliasing
 		//set to 0 and see the difference
-		float borderUV = 0.001f;
+		float borderUV = 0.01f;
 		
 		/*static const GLfloat g_uv_buffer_data[] = { 
 			 1 - UVoffset, -1 + UVoffset,

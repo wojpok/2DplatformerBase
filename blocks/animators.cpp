@@ -18,23 +18,23 @@ namespace obj {
 	UVoffset staticAnimator::getTexture(block* b) {return uv; }
 	
 	
-	/*synchronusLoopedAnimator::synchronusLoopedAnimator(GLuint* t, int len) {
+	synchronusLoopedAnimator::synchronusLoopedAnimator(UVoffset* t, int len) {
 		l = len;
-		textures = t;
+		uv = t;
 	}
 	
 	synchronusLoopedAnimator::~synchronusLoopedAnimator() {}
 		
 	void synchronusLoopedAnimator::stateFunction(block *b) {}
-	GLuint synchronusLoopedAnimator::getTexture(block *b) {
-		return textures[view::frameCnt%l];
+	UVoffset synchronusLoopedAnimator::getTexture(block *b) {
+		return uv[view::frameCnt%l];
 	}
 	
 	
-	asynchronousStateAnimator::asynchronousStateAnimator(GLuint* t, int len) 
-	{textures = t; l = len; }
-	asynchronousStateAnimator::~asynchronousStateAnimator(){};
+	multiStableAnimator::multiStableAnimator(UVoffset* t, int len) 
+	{uv = t; l = len; }
+	multiStableAnimator::~multiStableAnimator(){};
 	
-	void asynchronousStateAnimator::stateFunction(block *b) {b->updateState();}
-	GLuint asynchronousStateAnimator::getTexture(block *b) {return textures[b->getState()];}*/
+	void multiStableAnimator::stateFunction(block *b) {b->updateState();}
+	UVoffset multiStableAnimator::getTexture(block *b) {return uv[b->getState()];}
 }
