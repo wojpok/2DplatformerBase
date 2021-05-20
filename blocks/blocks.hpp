@@ -4,10 +4,13 @@
 namespace obj {
 	
 	class animator;
-	
+	// TO DO SOMETIME IN THE FUTURE: declare each block in seperate file
+
 	class block {
 	public:
 		const uint8_t id = 0;
+		
+		static block* createInstance();
 		static animator* anim;
 		
 		virtual animator* gAnim();
@@ -19,6 +22,8 @@ namespace obj {
 	
 	class grass : public block {
 	public:
+		static block* createInstance();
+		
 		const uint8_t id = 1;
 		static animator* anim;	
 		animator* gAnim();
@@ -26,6 +31,8 @@ namespace obj {
 	
 	class dirt : public block {
 	public:
+		static block* createInstance();
+		
 		const uint8_t id = 2;
 		static animator* anim;	
 		animator* gAnim();
@@ -33,6 +40,8 @@ namespace obj {
 	
 	class leaf : public block {
 	public:
+		static block* createInstance();
+		
 		const uint8_t id = 5;
 		static animator* anim;	
 		animator* gAnim();
@@ -40,6 +49,8 @@ namespace obj {
 	
 	class water_surface : public block {
 	public:	
+		static block* createInstance();
+		
 		const uint8_t id = 7;
 		static animator* anim;
 		animator* gAnim();
@@ -47,6 +58,8 @@ namespace obj {
 	
 	class stone : public block {
 	public:
+		static block* createInstance();
+		
 		const uint8_t id = 3;
 		static animator* anim;
 		
@@ -59,6 +72,8 @@ namespace obj {
 	
 	class lamp : public block {
 	public:
+		static block* createInstance();
+		
 		const uint8_t id = 7;
 		static animator* anim;
 		

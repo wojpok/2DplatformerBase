@@ -32,15 +32,15 @@ namespace view {
 
 
 	// Initial position : on +Z
-	glm::vec3 position = glm::vec3( -4, 2, 2 ); 
+	glm::vec3 position = glm::vec3( -5, 2, 2 ); 
 	// Initial horizontal angle : toward -Z
 	float horizontalAngle = 3.14/2;
 	// Initial vertical angle : none
 	float verticalAngle = 0.0f;
 	// Initial Field of View
-	float initialFoV = 70.0f;
+	float initialFoV = 50.0f;
 
-	float speed = 20.0f; // 3 units / second
+	float speed = 10.0f; // 3 units / second
 	float mouseSpeed = 0.005f;
 
 	float deltaTime;
@@ -74,12 +74,12 @@ namespace view {
 		}
 
 		// Get mouse position
-		double xpos = 0 , ypos = 0;
-		glfwGetCursorPos(window, &xpos, &ypos);
+		double xpos = 512 , ypos = 384;
+		//glfwGetCursorPos(window, &xpos, &ypos);
 		
 		// Reset mouse position for next frame
-		glfwSetCursorPos(window, 1024/2, 768/2);
-
+		//glfwSetCursorPos(window, 1024/2, 768/2); // CAMERA ROTATION DISABLED
+		
 		// Compute new orientation
 		horizontalAngle += mouseSpeed * float(1024/2 - xpos );
 		verticalAngle   += mouseSpeed * float( 768/2 - ypos );
@@ -119,20 +119,35 @@ namespace view {
 		}
 		
 		if (glfwGetKey( window, GLFW_KEY_1 ) == GLFW_PRESS){
-			blockInd = 0;
+			blockInd = 0; std::cout<<"Air block"<<std::endl;
 		}
 		if (glfwGetKey( window, GLFW_KEY_2 ) == GLFW_PRESS){
-			blockInd = 1;
+			blockInd = 1; std::cout<<"Grass block"<<std::endl;
 		}
 		if (glfwGetKey( window, GLFW_KEY_3 ) == GLFW_PRESS){
-			blockInd = 2;
+			blockInd = 2; std::cout<<"Dirt block"<<std::endl;
+		}
+		if (glfwGetKey( window, GLFW_KEY_4 ) == GLFW_PRESS){
+			blockInd = 3; std::cout<<"Stone block"<<std::endl;
+		}
+		if (glfwGetKey( window, GLFW_KEY_5 ) == GLFW_PRESS){
+			blockInd = 4; std::cout<<"Water block"<<std::endl;
+		}
+		if (glfwGetKey( window, GLFW_KEY_6 ) == GLFW_PRESS){
+			blockInd = 5; std::cout<<"Leaf block"<<std::endl;
+		}
+		if (glfwGetKey( window, GLFW_KEY_7 ) == GLFW_PRESS){
+			blockInd = 6; std::cout<<"Lamp block"<<std::endl;
+		}
+		if (glfwGetKey( window, GLFW_KEY_8 ) == GLFW_PRESS){
+			blockInd = 7;
 		}
 
-		float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
+		float FoV = initialFoV;//  - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
 
 		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 		ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
-		//ProjectionMatrix = glm::ortho(0, 1600, 900, 0, 0, 1000);
+		//ProjectionMatrix = glm::ortho( -1024.f, 1024.f, -768.f, 768.f);
 		// Camera matrix
 		ViewMatrix       = glm::lookAt(
 									position,           // Camera is here

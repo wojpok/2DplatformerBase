@@ -1,9 +1,9 @@
 #ifndef CHUNK_HPP
 #define CHUNK_HPP
 
-//class block;
-
 namespace con {
+	
+	obj::block* createNewBlock(int id);
 	
 	class chunk {
 	public:
@@ -28,7 +28,6 @@ namespace con {
 		obj::block* asyncGetBlock(int x, int y);
 		void enableBuffers();
 		void disableBuffers();
-		//glm::mat4*  getOffset(int x, int y);
 	};
 	
 	extern chunk* curr;

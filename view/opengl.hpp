@@ -6,6 +6,7 @@ namespace view {
 	extern float deltaTime;
 	extern float frameL;
 	extern int frameCnt;
+	extern int blockInd;
 	
 	void createContext();
 	void clearFrame();

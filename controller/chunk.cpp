@@ -17,7 +17,7 @@
 
 namespace con {
 	
-	 const int chunk::dimensions = 32;
+	 const int chunk::dimensions = 8;
 	
 	chunk* curr = NULL;
 	int cX = 0;
@@ -114,11 +114,17 @@ namespace con {
 	}
 	
 	void chunk::setBlock(int x, int y, obj::block* inst) {
-		if(blocks[y*dimensions+x] != NULL) delete blocks[y*dimensions+x];
+		// when inst == NULL basically is setBlock == removeBlock
+		int cord = y*dimensions+x;
+		if(blocks[cord] != NULL) {
+			delete blocks[cord];
+			atlasUVs[cord*2 ] = 0;
+			atlasUVs[cord*2 +1] = 0;
+		}
 		curr = this;
 		cX = x;
 		cY = y;
-		blocks[y*dimensions+x] = inst;
+		blocks[cord] = inst;
 	}
 	
 	obj::block* chunk::getBlock(int x, int y) {

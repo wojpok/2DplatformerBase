@@ -31,18 +31,31 @@ void mainloop() {
 	//ch->updateUVs();
 }
 
+void mousePress(GLFWwindow* window, int button, int action, int mods) {
+	
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+		double xpos = 512 , ypos = 384;
+		glfwGetCursorPos(view::window, &xpos, &ypos);
+		//std::cout<<"Button press at:"<<xpos<<" "<<ypos<<std::endl;
+		
+		if(xpos >= 141 && xpos <= 800 && ypos <= 755 && ypos >= 97) {
+			ch->setBlock(((xpos-141)*8)/((float)(800-141)),
+						 8-(((ypos-97)*8)/((float)(755-97))),
+						 con::createNewBlock(view::blockInd));
+		}
+	}
+}
+
 int main() {
 	std::cout<<" Welcome to 2D platformer "<<std::endl;
 	
 	view::createContext();
-	
 	obj::initStatics();
-	
 	view::shader sh;
-
 	view::shader *basic = &sh; 
+	view::frameL = 1;
 	
-	view::frameL = 0.2;
+	glfwSetMouseButtonCallback(view::window, mousePress);
 	
 	basic->Shader = view::LoadShaders("view/basicVertex.glsl","view/basicFragment.glsl");
 	basic->TextureID = glGetUniformLocation(basic->Shader, "myTextureSampler");
@@ -54,25 +67,22 @@ int main() {
 	
 	ch = new con::chunk();
 	
-	/*ch->setBlock(1, 1, new obj::block());
-	ch->setBlock(2, 2, new obj::grass());
-	ch->setBlock(3, 2, new obj::grass());
-	ch->setBlock(1, 2, new obj::grass());
-	ch->setBlock(1, 1, new obj::dirt());
-	ch->setBlock(2, 1, new obj::dirt());
-	ch->setBlock(3, 1, new obj::dirt());
-	ch->setBlock(2, 3, new obj::leaf());
+	int map[64] = {
+		1, 0, 0 ,0, 0, 5, 5, 1,
+		0, 0, 5 ,5, 0, 5, 1, 2,
+		6, 1, 1 ,1, 6, 1, 2, 2,
+		1, 2, 2 ,2, 1, 2, 2, 3,
+		2, 2, 2 ,2, 2, 2, 3, 3,
+		2, 3, 3 ,3, 2, 3, 3, 3,
+		3, 3, 3 ,3, 3, 3, 3, 3,
+		3, 3, 3 ,3, 3, 3, 3, 3
+	};
 	
-	for(int i = 4 ; i < con::chunk::dimensions; i++) {
-		for(int f = 4; f < con::chunk::dimensions; f++) {
-			ch->setBlock(f, i, new obj::stone());
-			
-		}
-	}*/
 	
 	for(int i = 0 ; i < con::chunk::dimensions; i++) {
 		for(int f = 0; f < con::chunk::dimensions; f++) {
-			ch->setBlock(f, i, new obj::lamp());
+			ch->setBlock(f, i, con::createNewBlock(map[(con::chunk::dimensions - 1 - i)
+			* con::chunk::dimensions+f]));
 			
 		}
 	}
@@ -101,7 +111,8 @@ int main() {
 		glm::mat4 ViewMatrix = view::getViewMatrix();
 		glm::mat4 ModelMatrix = glm::mat4(1);
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-		MVP = glm::scale(MVP, glm::vec3(0.125f, 0.125f, 0.125f));
+		float scale = 0.25f;
+		MVP = glm::scale(MVP, glm::vec3(scale, scale, scale));
 		
 		basic->useProgram();	
 		basic->bindMVP(MVP);
