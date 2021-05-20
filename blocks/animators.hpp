@@ -4,26 +4,33 @@
 namespace obj {
 	void initStatics();
 	
+	extern GLuint textureAtlas;
+	
 	class block;
+
+	typedef struct {
+		uint8_t UVsx;
+		uint8_t UVsy;
+	} UVoffset;
 
 	class animator {		
 	public:
-		GLuint texture; 
+		
 		virtual void stateFunction(block* b) = 0;
-		virtual GLuint getTexture(block* b) = 0;
+		virtual UVoffset getTexture(block* b) = 0;
 	};
 	
 	class staticAnimator : public animator {
 	public:
-
-		staticAnimator(GLuint t0);
+		UVoffset uv; 
+		staticAnimator(UVoffset off);
 		~staticAnimator();
 		
 		void stateFunction(block *b) override;
-		GLuint getTexture(block* b)  override;
+		UVoffset getTexture(block* b)  override;
 	};
 	
-	class synchronusLoopedAnimator : public animator {
+	/*class synchronusLoopedAnimator : public animator {
 	public:
 		GLuint *textures;
 		int l;
@@ -43,7 +50,7 @@ namespace obj {
 		
 		void stateFunction(block *b) override;
 		GLuint getTexture(block *b) override;
-	};
+	};*/
 }
 
 #endif

@@ -132,6 +132,7 @@ namespace view {
 
 		// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 		ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
+		//ProjectionMatrix = glm::ortho(0, 1600, 900, 0, 0, 1000);
 		// Camera matrix
 		ViewMatrix       = glm::lookAt(
 									position,           // Camera is here

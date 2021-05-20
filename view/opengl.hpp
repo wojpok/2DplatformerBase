@@ -38,6 +38,7 @@ namespace view {
 	
 		shape(GLuint vb, GLuint ub, int bs);
 		void draw();
+		void drawInstantiated(int count);
 		~shape();
 	};
 	

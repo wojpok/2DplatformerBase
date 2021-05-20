@@ -11,14 +11,14 @@
 #include "animators.hpp"
 
 namespace obj {
-	staticAnimator::staticAnimator(GLuint t0) {texture = t0;}
+	staticAnimator::staticAnimator(UVoffset t0) {uv = t0;}
 	staticAnimator::~staticAnimator(){}
 		
 	void staticAnimator::stateFunction(block *b) {}
-	GLuint staticAnimator::getTexture(block* b) {return texture; }
+	UVoffset staticAnimator::getTexture(block* b) {return uv; }
 	
 	
-	synchronusLoopedAnimator::synchronusLoopedAnimator(GLuint* t, int len) {
+	/*synchronusLoopedAnimator::synchronusLoopedAnimator(GLuint* t, int len) {
 		l = len;
 		textures = t;
 	}
@@ -36,5 +36,5 @@ namespace obj {
 	asynchronousStateAnimator::~asynchronousStateAnimator(){};
 	
 	void asynchronousStateAnimator::stateFunction(block *b) {b->updateState();}
-	GLuint asynchronousStateAnimator::getTexture(block *b) {return textures[b->getState()];}
+	GLuint asynchronousStateAnimator::getTexture(block *b) {return textures[b->getState()];}*/
 }

@@ -14,14 +14,19 @@
 #include "../controller/chunk.hpp"
 
 namespace obj {
+	GLuint textureAtlas = 0;
+	
 	void block::updateState() {}
-	int   block::getState() {return 0;}
+	int  block::getState() {return 0;}
 	void block::interState() {}
 	animator* block::gAnim() {return this->anim;}
 	
-	animator* block::anim = new staticAnimator(0);
+	animator* block::anim = new staticAnimator({1, 1});
 	
-	GLuint *t2 = new GLuint[3];
+	animator* grass::anim = new staticAnimator({3, 1});
+	animator* grass::gAnim() {return this->anim;}
+	
+	/*GLuint *t2 = new GLuint[3];
 	
 	random::random() {state = rand()%3;}
 	int random::getState() {return state;}
@@ -33,11 +38,11 @@ namespace obj {
 	GLuint *t3 = new GLuint[3];
 	
 	lamp::lamp() {
-		time = 0; state = 0;
+		time = 0; state = 0;*/
 		/*if((con::cX == 7 && con::cY >= 6 && con::cY <= 8)
 		|| (con::cY == 6 && con::cX == 6)
 		|| (con::cY == 7 && con::cX == 5)) state = 1;*/
-		state = rand() % 2;
+		/*state = rand() % 2;
 	}
 	int lamp::getState() {return (state & 1);}
 	void lamp::updateState() {}
@@ -66,21 +71,23 @@ namespace obj {
 		
 	animator* fan::anim = new synchronusLoopedAnimator(t,4);
 	animator* fan::gAnim() {return this->anim;}
-	
+	*/
 	void initStatics() {
 		
-		t3[0] = view::loadBMP_custom("blocks/lampoff.bmp");
+		textureAtlas = view::loadBMP_custom("blocks/atlas.bmp");
+		
+		/*t3[0] = view::loadBMP_custom("blocks/lampoff.bmp");
 		t3[1] = view::loadBMP_custom("blocks/lampon.bmp");
 		
-		t2[0] = view::loadBMP_custom("blocks/randstate1.bmp");
-		t2[1] = view::loadBMP_custom("blocks/randstate2.bmp");
-		t2[2] = view::loadBMP_custom("blocks/randstate3.bmp");
+		t2[0] = view::loadBMP_custom("blocks/atlas.bmp");
+		t2[1] = view::loadBMP_custom("blocks/atlas.bmp");
+		t2[2] = view::loadBMP_custom("blocks/atlas.bmp");
 		
 		t[0] = view::loadBMP_custom("blocks/radar1.bmp");
 		t[1] = view::loadBMP_custom("blocks/radar2.bmp");
 		t[2] = view::loadBMP_custom("blocks/radar4.bmp");
 		t[3] = view::loadBMP_custom("blocks/radar3.bmp");
 		
-		block::anim->texture = view::loadBMP_custom("blocks/simplegrass.bmp");
+		block::anim->texture = view::loadBMP_custom("blocks/simplegrass.bmp");*/
 	}
 }

@@ -17,7 +17,18 @@ namespace obj {
 		virtual int   getState();
 	};
 	
-	class fan : public block {
+	class grass : public block {
+	public:
+		const uint8_t id = 1;
+		static animator* anim;	
+		virtual animator* gAnim();
+		
+		/*virtual void  updateState();
+		virtual void  interState();
+		virtual int   getState();*/
+	};
+	
+	/*class fan : public block {
 	public:	
 		const uint8_t id = 2;
 		static animator* anim;
@@ -52,7 +63,7 @@ namespace obj {
 		
 		float time;
 		int state;
-	};
+	};*/
 }
 
 #endif

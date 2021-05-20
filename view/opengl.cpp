@@ -56,7 +56,11 @@ namespace view {
 		glfwSetCursorPos(window, 1024/2, 768/2);
 
 		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+		
+		//anti-aliasing
+		glEnable(GL_MULTISAMPLE);  
 
+		
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS); 
 		glEnable(GL_CULL_FACE);
@@ -83,13 +87,26 @@ namespace view {
 		glBindBuffer(GL_ARRAY_BUFFER, billboard_vertex_buffer);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_DYNAMIC_DRAW);
 		
+		//offsetting UV for easier atlas-texture-borders anti aliasing
+		//set to 0 and see the difference
+		float borderUV = 0.001f;
+		
+		/*static const GLfloat g_uv_buffer_data[] = { 
+			 1 - UVoffset, -1 + UVoffset,
+			 0+ UVoffset, 0- UVoffset,
+			 0+ UVoffset, -1+ UVoffset,
+			 1- UVoffset, -1+ UVoffset,
+			 1- UVoffset, 0- UVoffset,
+			 0+ UVoffset, 0- UVoffset
+		};*/
+		
 		static const GLfloat g_uv_buffer_data[] = { 
-			 1, -1,
-			 0, 0,
-			 0, -1,
-			 1, -1,
-			 1, 0,
-			 0, 0
+			 1 - borderUV, 0 + borderUV,
+			 0+ borderUV, 1- borderUV,
+			 0+ borderUV, 0+ borderUV,
+			 1- borderUV, 0+ borderUV,
+			 1- borderUV, 1- borderUV,
+			 0+ borderUV, 1- borderUV
 		};
 		
 		glGenBuffers(1, &billboard_uv_buffer);
@@ -142,6 +159,39 @@ namespace view {
 			(void*)0                          // array buffer offset
 		);
 		glDrawArrays(GL_TRIANGLES, 0, bufferSize );
+		
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+	}
+	
+	void shape::drawInstantiated( int count) {
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+		glVertexAttribPointer(
+			0,                  // attribute
+			3,                  // size
+			GL_FLOAT,           // type
+			GL_FALSE,           // normalized?
+			0,                  // stride
+			(void*)0            // array buffer offset
+		);
+
+		glEnableVertexAttribArray(1);
+		glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+		glVertexAttribPointer(
+			1,                                // attribute
+			2,                                // size
+			GL_FLOAT,                         // type
+			GL_FALSE,                         // normalized?
+			0,                                // stride
+			(void*)0                          // array buffer offset
+		);
+		glDrawArrays(GL_TRIANGLES, 0, bufferSize );
+		
+		glVertexAttribDivisor(0, 0);
+		glVertexAttribDivisor(1, 0); 
+		
+		glDrawArraysInstanced(GL_TRIANGLES, 0, bufferSize, count);
 		
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
