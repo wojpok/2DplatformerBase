@@ -17,7 +17,7 @@
 
 namespace con {
 	
-	 const int chunk::dimensions = 128;
+	 const int chunk::dimensions = 32;
 	
 	chunk* curr = NULL;
 	int cX = 0;
@@ -138,9 +138,4 @@ namespace con {
 		ltCorner[3][2] = x;
 		ltCorner[3][1] = y;
 	}
-	
-	/*glm::mat4* chunk::getOffset(int x, int y) {
-		return offsets[y*dimensions +x];
-	}*/
-
 }

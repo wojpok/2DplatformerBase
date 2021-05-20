@@ -57,7 +57,7 @@ namespace obj {
 		int state;
 	};
 	
-	/*class lamp : public random {
+	class lamp : public block {
 	public:
 		const uint8_t id = 7;
 		static animator* anim;
@@ -68,9 +68,8 @@ namespace obj {
 		virtual void  interState() override;
 		animator* gAnim() override;
 		
-		float time;
 		int state;
-	};*/
+	};
 }
 
 #endif

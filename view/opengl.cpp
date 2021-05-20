@@ -31,7 +31,7 @@ namespace view {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		// Open a window and create its OpenGL context
-		window = glfwCreateWindow( 1600, 900, "2Dplatformer", NULL, NULL);
+		window = glfwCreateWindow( 1024, 768, "2Dplatformer", NULL, NULL);
 		if( window == NULL ){
 			fprintf( stderr, "Failed to open GLFW window.\n" );
 			getchar();

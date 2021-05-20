@@ -31,7 +31,7 @@ namespace obj {
 	
 	animator* leaf::anim = new staticAnimator({1, 2});
 	animator* leaf::gAnim() {return this->anim;}
-	
+	UVoffset arr1[4] = {{1, 0}, {1, 1}, {2, 2}, {2, 3}};
 	animator* water_surface::anim = new synchronusLoopedAnimator(arr1, 3);
 	animator* water_surface::gAnim() {return this->anim;}
 	
@@ -45,24 +45,12 @@ namespace obj {
 	animator* stone::anim = new multiStableAnimator(arr2, 4);
 	animator* stone::gAnim() {return this->anim;}
 	
-	
-	/*GLuint *t2 = new GLuint[3];
-	
-	random::random() {state = rand()%3;}
-	int random::getState() {return state;}
-	void random::updateState() {}
-	void random::interState() {}
-	animator* random::gAnim() {return anim;}
-	animator* random::anim = new asynchronousStateAnimator(t2,3);
-	
-	GLuint *t3 = new GLuint[3];
-	
 	lamp::lamp() {
-		time = 0; state = 0;*/
+		state = 0;
 		/*if((con::cX == 7 && con::cY >= 6 && con::cY <= 8)
 		|| (con::cY == 6 && con::cX == 6)
 		|| (con::cY == 7 && con::cX == 5)) state = 1;*/
-		/*state = rand() % 2;
+		state = rand() % 2;
 	}
 	int lamp::getState() {return (state & 1);}
 	void lamp::updateState() {}
@@ -83,31 +71,10 @@ namespace obj {
 		}
 	}
 	animator* lamp::gAnim() {return anim;}
-	animator* lamp::anim = new asynchronousStateAnimator(t3,2);
+	UVoffset arr3[2] = {{2, 0}, {2, 1}};
+	animator* lamp::anim = new multiStableAnimator(arr3,2);
 	
-	
-	
-	GLuint *t = new GLuint[4];
-		
-	animator* fan::anim = new synchronusLoopedAnimator(t,4);
-	animator* fan::gAnim() {return this->anim;}
-	*/
 	void initStatics() {
-		
 		textureAtlas = view::loadBMP_custom("blocks/atlas.bmp");
-		
-		/*t3[0] = view::loadBMP_custom("blocks/lampoff.bmp");
-		t3[1] = view::loadBMP_custom("blocks/lampon.bmp");
-		
-		t2[0] = view::loadBMP_custom("blocks/atlas.bmp");
-		t2[1] = view::loadBMP_custom("blocks/atlas.bmp");
-		t2[2] = view::loadBMP_custom("blocks/atlas.bmp");
-		
-		t[0] = view::loadBMP_custom("blocks/radar1.bmp");
-		t[1] = view::loadBMP_custom("blocks/radar2.bmp");
-		t[2] = view::loadBMP_custom("blocks/radar4.bmp");
-		t[3] = view::loadBMP_custom("blocks/radar3.bmp");
-		
-		block::anim->texture = view::loadBMP_custom("blocks/simplegrass.bmp");*/
 	}
 }
