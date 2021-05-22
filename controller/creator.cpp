@@ -17,7 +17,7 @@
 
 namespace con {
 	
-	//wskaźniki na funkcje
+	//constructor pointers - very helpful approach when addresing blocks with ids
 	obj::block* (*constructorList[])() = {
 		obj::block::createInstance,
 		obj::grass::createInstance,
@@ -26,7 +26,7 @@ namespace con {
 		obj::leaf::createInstance, 
 		obj::wood::createInstance, //5
 		obj::lamp::createInstance,
-		obj::boiler::createInstance  //boiler maker
+		obj::boiler::createInstance  //boiler maker /s
 	}; 
 	
 	obj::block* createNewBlock(int id) {

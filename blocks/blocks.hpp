@@ -1,6 +1,11 @@
 #ifndef BLOCKS_HPP_
 #define BLOCKS_HPP_
 
+/*
+ * 	Block definitions. Each block implements certain state-specific functions when needed
+ *  In this example lamp (which implements Game of Life mechanics) needs more sophisticated intervalState function.
+ */
+
 namespace obj {
 	
 	class animator;

@@ -17,6 +17,8 @@ namespace obj {
 	// TO DO SOMEDAY IN THE FUTURE: declare each block in seperate file
 	//								 and compile into separate module
 	GLuint textureAtlas = 0;
+	
+	
 	//
 	// =================== BASIC BLOCK ==========================
 	//
@@ -81,6 +83,8 @@ namespace obj {
 	int lamp::getState() {return (state & 1);}
 	void lamp::updateState() {}
 	void lamp::interState() {
+		//uses binary shifts to alternate beetween calculating next state and pushing new state
+		
 		if(view::frameCnt%2 == 0) {
 			int n = 0;
 			for(int i = -1; i < 2; i++) {

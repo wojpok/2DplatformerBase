@@ -1,6 +1,15 @@
 #ifndef ANIMATORS_HPP
 #define ANIMATORS_HPP
 
+/*
+ * 			Animators are very specific objects
+ * 			They serve as database with UVs for specific blocks
+ * 
+ * 			Reason thy their functionality isn't merged into blocks is because
+ *  		In the future different blocks will have different behaviours and
+ * 			separating them avoids copying and pasting tons of code.
+ */
+
 namespace obj {
 	void initStatics();
 	

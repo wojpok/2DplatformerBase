@@ -17,13 +17,16 @@
 
 con::chunk *ch;
 
+// Function called once every second, no need to call this more frequently
 void mainloop() {
 	for(int x = 0; x < con::chunk::dimensions; x++) {
 			obj::block *b;
+			
+			//updates every block's state with interval function;
 			for(int y = 0; y < con::chunk::dimensions; y++) {
 				b = ch->getBlock(x, y);
 				if(NULL != b) {
-					b->interState();
+					b->interState(); 
 			}
 		}
 	}
@@ -31,12 +34,13 @@ void mainloop() {
 	//ch->updateUVs();
 }
 
+
+//Function called on mouse events - in this example it spawns blocks
 void mousePress(GLFWwindow* window, int button, int action, int mods) {
 	
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 		double xpos = 512 , ypos = 384;
 		glfwGetCursorPos(view::window, &xpos, &ypos);
-		//std::cout<<"Button press at:"<<xpos<<" "<<ypos<<std::endl;
 		
 		if(xpos >= 141 && xpos <= 800 && ypos <= 755 && ypos >= 97) {
 			ch->setBlock(((xpos-141)*8)/((float)(800-141)),
@@ -49,6 +53,7 @@ void mousePress(GLFWwindow* window, int button, int action, int mods) {
 int main() {
 	std::cout<<" Welcome to 2D platformer "<<std::endl;
 	
+	//setting up everything
 	view::createContext();
 	obj::initStatics();
 	view::shader sh;
@@ -62,11 +67,12 @@ int main() {
 	basic->MVPID = glGetUniformLocation(basic->Shader, "MVP");
 	basic->Pos1ID = glGetUniformLocation(basic->Shader, "offset");
 
-	glm::mat4 offset = glm::mat4(1);	
+	glm::mat4 offset = glm::mat4(1);
 	view::refreshFuncSet(mainloop);
 	
 	ch = new con::chunk();
 	
+	//demo map
 	int map[64] = {
 		1, 0, 0 ,0, 0, 5, 5, 1,
 		0, 0, 4 ,5, 0, 5, 1, 2,
@@ -87,21 +93,9 @@ int main() {
 		}
 	}
 	
-	//ch->setBlock(0, 0, new obj::water_surface());
 	
-	glm::vec3 *off = new glm::vec3[con::chunk::dimensions*con::chunk::dimensions];
-	for(int i = 0; i < con::chunk::dimensions*con::chunk::dimensions; i++) {
-		off[i] = glm::vec3(0, (i%con::chunk::dimensions)*2, (i/con::chunk::dimensions)*2);
-	}
-	
-	GLuint buffer;
-    glGenBuffers(1, &buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, con::chunk::dimensions*con::chunk::dimensions 
-				* sizeof(glm::vec3), &off[0], GL_STREAM_DRAW);
-
-	
-	
+	// main loop - draws blocks onto screen and calls computeMatricesFromInputs() 
+	// which manages time interval and user inputs
 	do { 
 		view::clearFrame();
 		
@@ -119,6 +113,9 @@ int main() {
 		basic->bindPos(ch->ltCorner);
 		basic->bindTexture(obj::textureAtlas);
 		
+		
+		//old approach -> draw each block separately (reeeaaally slow with grid bigger than 128x128)
+		
 		//basic->bindTexture(b->gAnim()->getTexture(b));
 		/*for(int x = 0; x < con::chunk::dimensions; x++) {
 			for(int y = 0; y < con::chunk::dimensions; y++) {
@@ -133,6 +130,7 @@ int main() {
 			}
 		}*/
 		
+		// new approach -> draw all blocks with 1 call
 		ch->updateUVs();
 		ch->enableBuffers();
 		view::block->drawInstantiated(con::chunk::dimensions*con::chunk::dimensions);

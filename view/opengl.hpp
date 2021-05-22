@@ -2,12 +2,15 @@
 #define OPENGL_HPP_
 
 namespace view {
+	
+	//global variabeles
 	extern GLFWwindow* window;
 	extern float deltaTime;
 	extern float frameL;
 	extern int frameCnt;
 	extern int blockInd;
 	
+	//wrapper functions for onpegl. It helps keep main.cpp as tidy as possible
 	void createContext();
 	void clearFrame();
 	void pushFrame();
@@ -16,6 +19,8 @@ namespace view {
 
 	void refreshFuncSet(void (*ptr)());
 
+	// shader class - stores required shader and some of it uniform variables
+	// also contains draw functions
 	class shader {
 	public:
 		GLuint Shader;
@@ -31,6 +36,7 @@ namespace view {
 		void bindPos2(glm::mat4 Pos);
 	};
 	
+	// shape class - provides buffers with mesh UVs and Vertices
 	class shape {
 	public:
 		GLuint vertexBuffer;
@@ -43,12 +49,14 @@ namespace view {
 		~shape();
 	};
 	
+	//global instance of only block needed right now
 	extern shape* block;
 	
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
 	void computeMatricesFromInputs();
 	
+	// file loaders
 	GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
 	GLuint loadBMP_custom(const char * imagepath);
 }

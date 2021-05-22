@@ -17,6 +17,7 @@ namespace view {
 	GLFWwindow* window;
 	shape* block;
 	
+	// initation
 	void createContext() {
 		if( !glfwInit() ) {
 			fprintf( stderr, "Failed to initialize GLFW\n" );
@@ -116,6 +117,7 @@ namespace view {
 		block = new shape(billboard_vertex_buffer, billboard_uv_buffer, 6);
 	}
 	
+	// opengl specific utilities
 	void clearFrame() {glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);}
 	void pushFrame() {
 		glfwSwapBuffers(window);
@@ -133,7 +135,7 @@ namespace view {
 	
 	
 	
-	
+		//shapes -> provides meshes for drawing
 	shape::shape(GLuint vb, GLuint ub, int bs) : vertexBuffer(vb), uvBuffer(ub), bufferSize(bs) { }
 	
 	void shape::draw() {

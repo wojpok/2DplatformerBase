@@ -26,6 +26,8 @@ namespace con {
 	glm::vec3* chunk::offsets = NULL;
 	GLuint chunk::offsetBuffer = 0;
 	
+	
+	// constructor - calculates offsets from chunk location for eash block
 	chunk::chunk() {
 		if(offsets == NULL) {
 			offsets = new glm::vec3[dimensions*dimensions];
@@ -44,7 +46,7 @@ namespace con {
 		atlasUVs = (uint8_t*) calloc(sizeof(uint8_t), dimensions*dimensions*2);
 		
 		
-		
+		// Creating buffer for unique UVS of each block
 		glGenBuffers(1, &UVsBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, UVsBuffer);
 		glBufferData(GL_ARRAY_BUFFER, dimensions*dimensions*2 
@@ -58,6 +60,7 @@ namespace con {
 		ltCorner = glm::mat4(1);
 	}
 	
+	//buffer providing functions
 	void chunk::enableBuffers() {
 		glEnableVertexAttribArray(3);
 		glBindBuffer(GL_ARRAY_BUFFER, offsetBuffer);
@@ -70,7 +73,7 @@ namespace con {
 			(void*)0                          // array buffer offset
 		);
 		
-		glVertexAttribDivisor(3, 1); // color : one per quad
+		glVertexAttribDivisor(3, 1); 
 		
 		
 		
@@ -80,12 +83,12 @@ namespace con {
 			4,                               
 			2,                                
 			GL_UNSIGNED_BYTE,                 // type
-			GL_FALSE,                          // normalized?    *** YES, this means that the unsigned char[4] will be accessible with a vec4 (floats) in the shader ***
+			GL_FALSE,                          
 			0,                                // stride
 			(void*)0                          // array buffer offset
 		);
 		
-		glVertexAttribDivisor(4, 1); // color : one per quad        
+		glVertexAttribDivisor(4, 1);    
 	}
 	
 	void chunk::disableBuffers() {
@@ -93,6 +96,7 @@ namespace con {
 		glDisableVertexAttribArray(4);
 	}
 	
+	//iterating through all blocks and collecting needed uvs
 	void chunk::updateUVs() {
 		obj::block* c;
 		int cord;

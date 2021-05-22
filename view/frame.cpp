@@ -19,6 +19,11 @@
 
 #include "opengl.hpp"
 
+/*
+ * 
+ * 			Manages user input and calculates deltaTime
+ */
+
 namespace view {
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;
@@ -75,10 +80,15 @@ namespace view {
 
 		// Get mouse position
 		double xpos = 512 , ypos = 384;
-		//glfwGetCursorPos(window, &xpos, &ypos);
+		
+		// ============ camera rotation disabled, uncomment if needed ================
+		
+		/*glfwGetCursorPos(window, &xpos, &ypos);		
 		
 		// Reset mouse position for next frame
-		//glfwSetCursorPos(window, 1024/2, 768/2); // CAMERA ROTATION DISABLED
+		glfwSetCursorPos(window, 1024/2, 768/2); 
+		*/
+		
 		
 		// Compute new orientation
 		horizontalAngle += mouseSpeed * float(1024/2 - xpos );
