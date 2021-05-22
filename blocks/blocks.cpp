@@ -14,7 +14,7 @@
 #include "../controller/chunk.hpp"
 
 namespace obj {
-	// TO DO SOMETIME IN THE FUTURE: declare each block in seperate file
+	// TO DO SOMEDAY IN THE FUTURE: declare each block in seperate file
 	//								 and compile into separate module
 	GLuint textureAtlas = 0;
 	//
@@ -41,23 +41,6 @@ namespace obj {
 	animator* dirt::anim = new staticAnimator({3, 2});
 	animator* dirt::gAnim() {return this->anim;}
 	block* dirt::createInstance( ) {return new dirt();}
-	
-	//
-	// =================== LEAF BLOCK ==========================
-	//
-	animator* leaf::anim = new staticAnimator({1, 2});
-	animator* leaf::gAnim() {return this->anim;}
-	block* leaf::createInstance( ) {return new leaf();}
-	
-	//
-	// =================== BASIC BLOCK ==========================
-	//
-	UVoffset arr1[2] = {{0, 1}, {0, 2}};
-	animator* water_surface::anim = new synchronusLoopedAnimator(arr1, 2);
-	animator* water_surface::gAnim() {return this->anim;}
-	block* water_surface::createInstance( ) {return new water_surface();}
-	
-	
 	//
 	// =================== STONE BLOCK ==========================
 	//
@@ -72,7 +55,21 @@ namespace obj {
 	block* stone::createInstance( ) {return new stone();}
 	
 	//
-	// =================== GAME OF LIFE BLOCK ==========================
+	// =================== LEAF BLOCK ==========================
+	//
+	animator* leaf::anim = new staticAnimator({1, 2});
+	animator* leaf::gAnim() {return this->anim;}
+	block* leaf::createInstance( ) {return new leaf();}
+	
+	//
+	// =================== WOOD BLOCK ==========================
+	//
+	animator* wood::anim = new staticAnimator({3, 3});
+	animator* wood::gAnim() {return this->anim;}
+	block* wood::createInstance( ) {return new wood();}
+	
+	//
+	// =================== LAMP BLOCK [GAME OF LIFE] ===========
 	//
 	lamp::lamp() {
 		/*state = 0;
@@ -104,7 +101,20 @@ namespace obj {
 	animator* lamp::anim = new multiStableAnimator(arr3,2);
 	block* lamp::createInstance( ) {return new lamp();}
 	
+	//
+	// =================== BOILER BLOCK ==========================
+	//
+	UVoffset arr1[10] = {{0, 2}, {0, 1}, {0, 2}, {0, 1}, {0, 1}, {0, 2}, {0, 1}, {0, 3} , {0, 3}, {0, 1}};
+	animator* boiler::anim = new synchronusLoopedAnimator(arr1, 10);
+	animator* boiler::gAnim() {return this->anim;}
+	block* boiler::createInstance( ) {return new boiler();}
+	
+	
+
+	
+	
+	
 	void initStatics() {
-		textureAtlas = view::loadBMP_custom("blocks/atlas.bmp");
+		textureAtlas = view::loadBMP_custom("blocks/atlas2.bmp");
 	}
 }

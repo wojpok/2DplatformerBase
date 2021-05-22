@@ -69,12 +69,12 @@ int main() {
 	
 	int map[64] = {
 		1, 0, 0 ,0, 0, 5, 5, 1,
-		0, 0, 5 ,5, 0, 5, 1, 2,
+		0, 0, 4 ,5, 0, 5, 1, 2,
 		6, 1, 1 ,1, 6, 1, 2, 2,
 		1, 2, 2 ,2, 1, 2, 2, 3,
 		2, 2, 2 ,2, 2, 2, 3, 3,
 		2, 3, 3 ,3, 2, 3, 3, 3,
-		3, 3, 3 ,3, 3, 3, 3, 3,
+		3, 3, 4 ,3, 3, 3, 3, 3,
 		3, 3, 3 ,3, 3, 3, 3, 3
 	};
 	
@@ -111,7 +111,7 @@ int main() {
 		glm::mat4 ViewMatrix = view::getViewMatrix();
 		glm::mat4 ModelMatrix = glm::mat4(1);
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-		float scale = 0.25f;
+		float scale = 1.f/4;
 		MVP = glm::scale(MVP, glm::vec3(scale, scale, scale));
 		
 		basic->useProgram();	

@@ -131,16 +131,16 @@ namespace view {
 			blockInd = 3; std::cout<<"Stone block"<<std::endl;
 		}
 		if (glfwGetKey( window, GLFW_KEY_5 ) == GLFW_PRESS){
-			blockInd = 4; std::cout<<"Water block"<<std::endl;
+			blockInd = 4; std::cout<<"Leaf block"<<std::endl;
 		}
 		if (glfwGetKey( window, GLFW_KEY_6 ) == GLFW_PRESS){
-			blockInd = 5; std::cout<<"Leaf block"<<std::endl;
+			blockInd = 5; std::cout<<"Wood block"<<std::endl;
 		}
 		if (glfwGetKey( window, GLFW_KEY_7 ) == GLFW_PRESS){
 			blockInd = 6; std::cout<<"Lamp block"<<std::endl;
 		}
 		if (glfwGetKey( window, GLFW_KEY_8 ) == GLFW_PRESS){
-			blockInd = 7;
+			blockInd = 7; std::cout<<"Boiler block"<<std::endl;
 		}
 
 		float FoV = initialFoV;//  - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.

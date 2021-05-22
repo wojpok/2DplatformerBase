@@ -23,9 +23,10 @@ namespace con {
 		obj::grass::createInstance,
 		obj::dirt::createInstance,
 		obj::stone::createInstance,
-		obj::water_surface::createInstance,
-		obj::leaf::createInstance,//5
-		obj::lamp::createInstance	
+		obj::leaf::createInstance, 
+		obj::wood::createInstance, //5
+		obj::lamp::createInstance,
+		obj::boiler::createInstance  //boiler maker
 	}; 
 	
 	obj::block* createNewBlock(int id) {

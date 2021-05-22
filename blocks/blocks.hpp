@@ -38,24 +38,6 @@ namespace obj {
 		animator* gAnim();
 	};
 	
-	class leaf : public block {
-	public:
-		static block* createInstance();
-		
-		const uint8_t id = 5;
-		static animator* anim;	
-		animator* gAnim();
-	};
-	
-	class water_surface : public block {
-	public:	
-		static block* createInstance();
-		
-		const uint8_t id = 7;
-		static animator* anim;
-		animator* gAnim();
-	};
-	
 	class stone : public block {
 	public:
 		static block* createInstance();
@@ -70,11 +52,29 @@ namespace obj {
 		int state;
 	};
 	
+	class wood : public block {
+	public:
+		static block* createInstance();
+		
+		const uint8_t id = 4;
+		static animator* anim;	
+		animator* gAnim();
+	};
+	
+	class leaf : public block {
+	public:
+		static block* createInstance();
+		
+		const uint8_t id = 5;
+		static animator* anim;	
+		animator* gAnim();
+	};
+	
 	class lamp : public block {
 	public:
 		static block* createInstance();
 		
-		const uint8_t id = 7;
+		const uint8_t id = 6;
 		static animator* anim;
 		
 		lamp();
@@ -84,6 +84,15 @@ namespace obj {
 		animator* gAnim() override;
 		
 		int state;
+	};
+	
+	class boiler : public block {
+	public:	
+		static block* createInstance();
+		
+		const uint8_t id = 7;
+		static animator* anim;
+		animator* gAnim();
 	};
 }
 

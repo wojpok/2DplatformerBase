@@ -26,7 +26,7 @@ namespace view {
 		
 		void useProgram();
 		void bindTexture(GLuint Texture);
-		virtual void bindMVP(glm::mat4 MVP); //Trzeba to wywołać w każdej klatce, ale tylko raz
+		virtual void bindMVP(glm::mat4 MVP);
 		void bindPos(glm::mat4 Pos);
 		void bindPos2(glm::mat4 Pos);
 	};
