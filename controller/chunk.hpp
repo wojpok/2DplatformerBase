@@ -17,6 +17,9 @@ namespace con {
 		static glm::vec3* offsets;
 		static GLuint offsetBuffer;
 		
+		static view::shape *tileMesh;
+		static view::shader *blockShader;
+		
 		uint8_t *atlasUVs;
 		GLuint UVsBuffer;
 		
@@ -27,6 +30,8 @@ namespace con {
 		glm::mat4 ltCorner;
 		
 		void updateUVs();
+		void intervalState();
+		void dynamicState();
 		
 		//move chunk
 		void setPos(int x, int y);

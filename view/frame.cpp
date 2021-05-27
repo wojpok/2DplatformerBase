@@ -45,7 +45,7 @@ namespace view {
 	// Initial Field of View
 	float initialFoV = 50.0f;
 
-	float speed = 10.0f; // 3 units / second
+	float speed = 1.0f; // 3 units / second
 	float mouseSpeed = 0.005f;
 
 	float deltaTime;
@@ -83,11 +83,11 @@ namespace view {
 		
 		// ============ camera rotation disabled, uncomment if needed ================
 		
-		/*glfwGetCursorPos(window, &xpos, &ypos);		
+		glfwGetCursorPos(window, &xpos, &ypos);		
 		
 		// Reset mouse position for next frame
 		glfwSetCursorPos(window, 1024/2, 768/2); 
-		*/
+		
 		
 		
 		// Compute new orientation

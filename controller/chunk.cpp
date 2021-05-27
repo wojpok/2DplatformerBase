@@ -8,8 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
-//#include "view/opengl.hpp"
-//#include "view/shaders.hpp"
+#include "../view/opengl.hpp"
 #include "../blocks/blocks.hpp"
 #include "../blocks/animators.hpp"
 
@@ -115,6 +114,34 @@ namespace con {
 		glBindBuffer(GL_ARRAY_BUFFER, UVsBuffer);
 		glBufferData(GL_ARRAY_BUFFER, dimensions*dimensions*2 
 			* sizeof(uint8_t), &atlasUVs[0], GL_STREAM_DRAW);
+	}
+	
+	void chunk::intervalState() {
+		obj::block *b;
+		
+		for(int x = 0; x < dimensions; x++) {
+			//updates every block's state with interval function;
+			for(int y = 0; y < dimensions; y++) {
+				b = getBlock(x, y);
+				if(NULL != b) {
+					b->interState(); 
+				}
+			}
+		}
+	}
+	
+	void chunk::dynamicState() {
+		obj::block *b;
+		
+		for(int x = 0; x < dimensions; x++) {
+			//updates every block's state with interval function;
+			for(int y = 0; y < dimensions; y++) {
+				b = getBlock(x, y);
+				if(NULL != b) {
+					b->updateState(); 
+				}
+			}
+		}
 	}
 	
 	void chunk::setBlock(int x, int y, obj::block* inst) {

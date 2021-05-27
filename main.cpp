@@ -9,7 +9,6 @@
 #include <glm/gtx/transform.hpp>
 
 #include "view/opengl.hpp"
-//#include "view/shaders.hpp"
 #include "blocks/blocks.hpp"
 #include "blocks/animators.hpp"
 #include "controller/chunk.hpp"
@@ -19,17 +18,7 @@ con::chunk *ch;
 
 // Function called once every second, no need to call this more frequently
 void mainloop() {
-	for(int x = 0; x < con::chunk::dimensions; x++) {
-			obj::block *b;
-			
-			//updates every block's state with interval function;
-			for(int y = 0; y < con::chunk::dimensions; y++) {
-				b = ch->getBlock(x, y);
-				if(NULL != b) {
-					b->interState(); 
-			}
-		}
-	}
+	ch->intervalState();
 	
 	//ch->updateUVs();
 }
@@ -56,8 +45,7 @@ int main() {
 	//setting up everything
 	view::createContext();
 	obj::initStatics();
-	view::shader sh;
-	view::shader *basic = &sh; 
+	view::shader *basic = new view::shader(); 
 	view::frameL = 1;
 	
 	glfwSetMouseButtonCallback(view::window, mousePress);
@@ -76,8 +64,8 @@ int main() {
 	int map[64] = {
 		1, 0, 0 ,0, 0, 5, 5, 1,
 		0, 0, 4 ,5, 0, 5, 1, 2,
-		6, 1, 1 ,1, 6, 1, 2, 2,
-		1, 2, 2 ,2, 1, 2, 2, 3,
+		6, 7, 1 ,1, 6, 1, 2, 2,
+		7, 2, 2 ,2, 1, 2, 2, 3,
 		2, 2, 2 ,2, 2, 2, 3, 3,
 		2, 3, 3 ,3, 2, 3, 3, 3,
 		3, 3, 4 ,3, 3, 3, 3, 3,
@@ -131,6 +119,10 @@ int main() {
 		}*/
 		
 		// new approach -> draw all blocks with 1 call
+		
+		//this serves no purpose rn
+		ch->dynamicState();
+		
 		ch->updateUVs();
 		ch->enableBuffers();
 		view::block->drawInstantiated(con::chunk::dimensions*con::chunk::dimensions);
