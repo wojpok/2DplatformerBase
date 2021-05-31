@@ -37,7 +37,7 @@ namespace view {
 
 
 	// Initial position : on +Z
-	glm::vec3 position = glm::vec3( -5, 2, 2 ); 
+	glm::vec3 camOffset = glm::vec3( -5, 3, 3 ); 
 	// Initial horizontal angle : toward -Z
 	float horizontalAngle = 3.14/2;
 	// Initial vertical angle : none
@@ -63,7 +63,9 @@ namespace view {
 		refreshFunc = ptr;
 	}
 	
-	void computeMatricesFromInputs(){
+	void computeMatricesFromInputs(glm::mat4 camCenter){
+		
+		glm::vec3 position = glm::vec3(camCenter[3][0]-10, camCenter[3][1], camCenter[3][2]);
 
 		// glfwGetTime is called only once, the first time this function is called
 		static double lastTime = glfwGetTime();
@@ -112,7 +114,7 @@ namespace view {
 		glm::vec3 up = glm::cross( right, direction );
 
 		// Move forward
-		if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS){
+		/*if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS){
 			position += direction * deltaTime * speed;
 		}
 		// Move backward
@@ -126,7 +128,7 @@ namespace view {
 		// Strafe left
 		if (glfwGetKey( window, GLFW_KEY_LEFT ) == GLFW_PRESS){
 			position -= right * deltaTime * speed;
-		}
+		}*/
 		
 		if (glfwGetKey( window, GLFW_KEY_1 ) == GLFW_PRESS){
 			blockInd = 0; std::cout<<"Air block"<<std::endl;

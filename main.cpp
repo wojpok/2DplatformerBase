@@ -12,15 +12,15 @@
 #include "blocks/blocks.hpp"
 #include "blocks/animators.hpp"
 #include "controller/chunk.hpp"
+#include "controller/player.hpp"
 
+#include "globals.hpp"
 
 con::chunk *ch;
 
 // Function called once every second, no need to call this more frequently
 void mainloop() {
 	ch->intervalState();
-	
-	//ch->updateUVs();
 }
 
 
@@ -68,8 +68,8 @@ int main() {
 		7, 2, 2 ,2, 1, 2, 2, 3,
 		2, 2, 2 ,2, 2, 2, 3, 3,
 		2, 3, 3 ,3, 2, 3, 3, 3,
-		3, 3, 4 ,3, 3, 3, 3, 3,
-		3, 3, 3 ,3, 3, 3, 3, 3
+		0, 0, 4 ,3, 3, 3, 3, 3,
+		0, 0, 3 ,3, 3, 3, 3, 3
 	};
 	
 	
@@ -81,26 +81,48 @@ int main() {
 		}
 	}
 	
+	//player instance
+	con::player* ply = new con::player();
+	ply->playerShader = new view::shader();
+	
+	ply->playerShader->Shader = view::LoadShaders("view/playerVertex.glsl","view/playerFragment.glsl");
+	ply->playerShader->MVPID = glGetUniformLocation(ply->playerShader->Shader, "MVP");
+	ply->playerShader->Pos1ID = glGetUniformLocation(ply->playerShader->Shader, "offset");
+	
+	ply->playerMesh = view::block;
+	
+	ply->worldspacePos = glm::mat4(1);
 	
 	// main loop - draws blocks onto screen and calls computeMatricesFromInputs() 
 	// which manages time interval and user inputs
 	do { 
+		
+		ply->update();
+		
 		view::clearFrame();
 		
-		view::computeMatricesFromInputs();
+		view::computeMatricesFromInputs(ply->worldspacePos);
 		
 		glm::mat4 ProjectionMatrix = view::getProjectionMatrix();
 		glm::mat4 ViewMatrix = view::getViewMatrix();
 		glm::mat4 ModelMatrix = glm::mat4(1);
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-		float scale = 1.f/4;
-		MVP = glm::scale(MVP, glm::vec3(scale, scale, scale));
+		
+		
+		
+		
+		
+		/*float scale = 1.f/4;
+		MVP = glm::scale(MVP, glm::vec3(scale, scale, scale));*/
 		
 		basic->useProgram();	
 		basic->bindMVP(MVP);
 		basic->bindPos(ch->ltCorner);
 		basic->bindTexture(obj::textureAtlas);
 		
+		
+		GLuint time = glGetUniformLocation(basic->Shader, "time");
+		glUniform1f(time, glfwGetTime());
 		
 		//old approach -> draw each block separately (reeeaaally slow with grid bigger than 128x128)
 		
@@ -127,6 +149,11 @@ int main() {
 		ch->enableBuffers();
 		view::block->drawInstantiated(con::chunk::dimensions*con::chunk::dimensions);
 		ch->disableBuffers();
+		
+		ply->draw(MVP);
+		
+		//ply->playerShader->bindMVP(MVP);
+		//ply->playerShader->bindPos(ply->);
 		
 		view::pushFrame();
 	}

@@ -2,14 +2,12 @@
 
 // Interpolated values from the vertex shaders
 in vec2 UV;
-in vec2 ou;
-in vec3 worldOffset;
 in float time_f;
 // Ouput data
 out vec4 color;
 
 // Values that stay constant for the whole mesh.
-uniform sampler2D myTextureSampler;
+//uniform sampler2D myTextureSampler;
 
 vec2 squareImaginary(vec2 number){
 	return vec2(
@@ -30,19 +28,17 @@ float iterateMandelbrot(vec2 coord){
 }
 
 void main(){
-	if(ou.y == 0 && ou.x == 0) {
-		color = vec4(0,0,0,0);
-	}
-	else {
-	vec2 UVs = 0.25*(UV + vec2(ou.y, ou.x));
+	//vec2 UVs = 0.25*(UV);
 	
-	//float it = iterateMandelbrot(vec2((worldOffset.z-8)/8+0.25*UV.x, (worldOffset.y-8)/8+0.25*UV.y));
+	float it = iterateMandelbrot(2*(UV-vec2(0.5, 0.5)));
 	
 	// Output color = color of the texture at the specified UV
 	//color = vec4 ( texture( myTextureSampler, UVs ).rgb, it);
-	//color = vec4(1, 1, 1, 1) * it;
-	color = texture( myTextureSampler, UVs ).rgba;
-	}
+	/*color = vec4(0.5*sin(2*time_f)+0.5, 
+				 0.5*sin(3*time_f)+0.5,  
+				 0.5*sin(5*time_f)+0.5, 1)*it;*/
+	 color = vec4(it, it, it, it);
+	//color = texture( myTextureSampler, UVs ).rgba;
 }
 
 

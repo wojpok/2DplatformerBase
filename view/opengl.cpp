@@ -75,13 +75,22 @@ namespace view {
 		
 		// Load it into a VBO
 		GLuint billboard_vertex_buffer, billboard_uv_buffer;
-		static const GLfloat g_vertex_buffer_data[] = { 
+		/*static const GLfloat g_vertex_buffer_data[] = { 
 			 0, -1, 1,
 			 0, 1, -1,
 			 0, -1, -1,
 			 0, -1, 1,
 			 0, 1, 1,
 			 0, 1, -1,
+		};*/
+		
+		static const GLfloat g_vertex_buffer_data[] = { 
+			 0, 0, 1,
+			 0, 1, 0,
+			 0, 0, 0,
+			 0, 0, 1,
+			 0, 1, 1,
+			 0, 1, 0,
 		};
 		
 		glGenBuffers(1, &billboard_vertex_buffer);

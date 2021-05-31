@@ -32,7 +32,7 @@ namespace con {
 			offsets = new glm::vec3[dimensions*dimensions];
 			for(int y = 0; y < dimensions; y++) {
 				for(int x = 0 ; x < dimensions; x++) {
-					offsets[y*dimensions+x] = glm::vec3(0, 2*y, 2*x);
+					offsets[y*dimensions+x] = glm::vec3(0, y, x);
 				}
 			}
 			
@@ -51,7 +51,7 @@ namespace con {
 		glBufferData(GL_ARRAY_BUFFER, dimensions*dimensions*2 
 			* sizeof(uint8_t), &atlasUVs[0], GL_STREAM_DRAW);
 		
-		atlasUVs[0] =  1;
+		//atlasUVs[0] =  1;
 		
 		blocks = (obj::block**)calloc(sizeof(obj::block*),dimensions*dimensions);
 		for(int i = 0; i < dimensions*dimensions; i++)
@@ -159,10 +159,14 @@ namespace con {
 	}
 	
 	obj::block* chunk::getBlock(int x, int y) {
-		curr = this;
-		cX = x;
-		cY = y;
-		return blocks[(y)*dimensions +(x)];
+		if(x >= 0 && x < dimensions && y >= 0 && y < dimensions) {
+			curr = this;
+			cX = x;
+			cY = y;
+			return blocks[(y)*dimensions +(x)];
+		}
+		
+		return NULL;
 	}
 	
 	obj::block* chunk::asyncGetBlock(int x, int y) {

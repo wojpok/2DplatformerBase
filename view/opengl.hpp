@@ -54,7 +54,7 @@ namespace view {
 	
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
-	void computeMatricesFromInputs();
+	void computeMatricesFromInputs(glm::mat4 camCenter);
 	
 	// file loaders
 	GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
