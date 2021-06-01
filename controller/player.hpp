@@ -5,6 +5,10 @@ namespace con {
 
 	class player {
 	public:
+		//change: there is no animator
+		//			textures don't support opacity (yet) so simple look is 
+		//			hard-coded into player shader
+	
 		glm::mat4 worldspacePos;
 		view::shader* playerShader;
 		view::shape*  playerMesh;

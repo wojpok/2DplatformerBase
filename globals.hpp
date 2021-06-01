@@ -4,5 +4,5 @@
 // bad practise, but I'll rewrite this in the future to secure data
 
 extern con::chunk *ch;
-
+extern float blockScale;
 #endif

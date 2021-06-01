@@ -24,10 +24,12 @@ namespace con {
 		
 		float deltaDist = view::deltaTime * speed;
 		
-		int collisionX = ((int)floor(worldspacePos[3][2]));
-		int collisionY = ((int)floor(worldspacePos[3][1]));
+		//int collisionX = ((int)floor(worldspacePos[3][2]));
+		//int collisionY = ((int)floor(worldspacePos[3][1]));
 		
-		#define __desc(x) (((x) == NULL) ? (' ') : ('x'))
+		// Failed concept of collisions, needs more work
+		
+		/*#define __desc(x) (((x) == NULL) ? (' ') : ('x'))
 		
 		for(int y = 2; y > -2; y--) {
 			for (int x = -1; x < 3; x++) {
@@ -36,7 +38,8 @@ namespace con {
 			std::cout<<std::endl;
 		}
 		
-		std::cout<<collisionX<<" "<<collisionY<<std::endl;
+		std::cout<<collisionX<<" "<<collisionY<<std::endl;*/
+		
 		
 		
 		if (glfwGetKey( view::window, GLFW_KEY_UP ) == GLFW_PRESS) {
@@ -59,11 +62,18 @@ namespace con {
 		}
 		// Strafe right
 		if (glfwGetKey( view::window, GLFW_KEY_RIGHT ) == GLFW_PRESS){
-			worldspacePos[3][2] += view::deltaTime * speed;
+			worldspacePos[3][2] += deltaDist;
 		}
 		// Strafe left
 		if (glfwGetKey( view::window, GLFW_KEY_LEFT ) == GLFW_PRESS){
-			worldspacePos[3][2] -= view::deltaTime * speed;
+			worldspacePos[3][2] -= deltaDist;
+		}
+		
+		if (glfwGetKey( view::window, GLFW_KEY_SPACE ) == GLFW_PRESS){
+			int collisionX = ((int)floor((worldspacePos[3][2] + 0.5f)/blockScale));
+			int collisionY = ((int)floor((worldspacePos[3][1] + 0.5f)/blockScale));
+			//std::cout<<collisionX<<" "<<collisionY<<std::endl;
+			ch->setBlock(collisionX, collisionY, con::createNewBlock( view::blockInd));
 		}
 	}
 	

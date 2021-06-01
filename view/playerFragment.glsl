@@ -30,15 +30,23 @@ float iterateMandelbrot(vec2 coord){
 void main(){
 	//vec2 UVs = 0.25*(UV);
 	
-	float it = iterateMandelbrot(2*(UV-vec2(0.5, 0.5)));
+	//float it = iterateMandelbrot(2*(UV-vec2(0.5, 0.5)));
 	
 	// Output color = color of the texture at the specified UV
 	//color = vec4 ( texture( myTextureSampler, UVs ).rgb, it);
 	/*color = vec4(0.5*sin(2*time_f)+0.5, 
 				 0.5*sin(3*time_f)+0.5,  
 				 0.5*sin(5*time_f)+0.5, 1)*it;*/
-	 color = vec4(it, it, it, it);
+	 //color = vec4(it, it, it, it);
 	//color = texture( myTextureSampler, UVs ).rgba;
+	
+	if(((UV.x < 0.55 && UV.x > 0.45) && (UV.y < 0.8 && UV.y > 0.2)) || 
+		((UV.y < 0.55 && UV.y > 0.45) && (UV.x < 0.8 && UV.x > 0.2))) {
+		color = vec4(0.5*sin(2*time_f)+0.5,0.5*sin(3*time_f)+0.5, 0.5*sin(4*time_f)+0.5, 1);
+	}
+	else {
+		color = vec4(0, 0, 0, 0);
+	}
 }
 
 

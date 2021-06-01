@@ -18,6 +18,8 @@
 
 con::chunk *ch;
 
+float blockScale = 0.5f;
+
 // Function called once every second, no need to call this more frequently
 void mainloop() {
 	ch->intervalState();
@@ -27,7 +29,7 @@ void mainloop() {
 //Function called on mouse events - in this example it spawns blocks
 void mousePress(GLFWwindow* window, int button, int action, int mods) {
 	
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+	/*if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 		double xpos = 512 , ypos = 384;
 		glfwGetCursorPos(view::window, &xpos, &ypos);
 		
@@ -36,7 +38,7 @@ void mousePress(GLFWwindow* window, int button, int action, int mods) {
 						 8-(((ypos-97)*8)/((float)(755-97))),
 						 con::createNewBlock(view::blockInd));
 		}
-	}
+	}*/
 }
 
 int main() {
@@ -73,11 +75,17 @@ int main() {
 	};
 	
 	
+	for(int i = 0 ; i < 8; i++) {
+		for(int f = 0; f < 8; f++) {
+			ch->setBlock(f, i, con::createNewBlock(map[(7 - i)* 8+f]));
+			
+		}
+	}
+	
 	for(int i = 0 ; i < con::chunk::dimensions; i++) {
 		for(int f = 0; f < con::chunk::dimensions; f++) {
-			ch->setBlock(f, i, con::createNewBlock(map[(con::chunk::dimensions - 1 - i)
-			* con::chunk::dimensions+f]));
-			
+			if(i > 16 && f > 16)
+				ch->setBlock(f, i, con::createNewBlock(rand()%8));
 		}
 	}
 	
@@ -110,13 +118,10 @@ int main() {
 		
 		
 		
-		
-		
-		/*float scale = 1.f/4;
-		MVP = glm::scale(MVP, glm::vec3(scale, scale, scale));*/
+		glm::mat4 scaledMVP = glm::scale(MVP, glm::vec3(blockScale, blockScale, blockScale));
 		
 		basic->useProgram();	
-		basic->bindMVP(MVP);
+		basic->bindMVP(scaledMVP);
 		basic->bindPos(ch->ltCorner);
 		basic->bindTexture(obj::textureAtlas);
 		
