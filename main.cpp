@@ -19,7 +19,9 @@
 con::chunk *ch;
 
 float blockScale = 0.5f;
-
+glm::mat4 scaledMVP;
+glm::mat4 MVP;
+glm::mat4 centreTransfromation;
 // Function called once every second, no need to call this more frequently
 void mainloop() {
 	ch->intervalState();
@@ -59,6 +61,9 @@ int main() {
 
 	glm::mat4 offset = glm::mat4(1);
 	view::refreshFuncSet(mainloop);
+	
+	con::chunk::tileMesh = view::block;
+	con::chunk::blockShader = basic;
 	
 	ch = new con::chunk();
 	
@@ -114,51 +119,13 @@ int main() {
 		glm::mat4 ProjectionMatrix = view::getProjectionMatrix();
 		glm::mat4 ViewMatrix = view::getViewMatrix();
 		glm::mat4 ModelMatrix = glm::mat4(1);
-		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+		MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+
+		scaledMVP = glm::scale(MVP, glm::vec3(blockScale, blockScale, blockScale));
 		
-		
-		
-		glm::mat4 scaledMVP = glm::scale(MVP, glm::vec3(blockScale, blockScale, blockScale));
-		
-		basic->useProgram();	
-		basic->bindMVP(scaledMVP);
-		basic->bindPos(ch->ltCorner);
-		basic->bindTexture(obj::textureAtlas);
-		
-		
-		GLuint time = glGetUniformLocation(basic->Shader, "time");
-		glUniform1f(time, glfwGetTime());
-		
-		//old approach -> draw each block separately (reeeaaally slow with grid bigger than 128x128)
-		
-		//basic->bindTexture(b->gAnim()->getTexture(b));
-		/*for(int x = 0; x < con::chunk::dimensions; x++) {
-			for(int y = 0; y < con::chunk::dimensions; y++) {
-				b = ch->getBlock(x, y);
-				if(NULL != b) {
-					b->gAnim()->stateFunction(b);
-					basic->bindTexture(b->gAnim()->getTexture(b));
-					basic->bindPos2(*ch->getOffset(x, y));
-					
-					view::block->draw();
-				}
-			}
-		}*/
-		
-		// new approach -> draw all blocks with 1 call
-		
-		//this serves no purpose rn
-		ch->dynamicState();
-		
-		ch->updateUVs();
-		ch->enableBuffers();
-		view::block->drawInstantiated(con::chunk::dimensions*con::chunk::dimensions);
-		ch->disableBuffers();
+		ch->drawAll();
 		
 		ply->draw(MVP);
-		
-		//ply->playerShader->bindMVP(MVP);
-		//ply->playerShader->bindPos(ply->);
 		
 		view::pushFrame();
 	}

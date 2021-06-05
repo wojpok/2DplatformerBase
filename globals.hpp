@@ -5,4 +5,10 @@
 
 extern con::chunk *ch;
 extern float blockScale;
+
+extern glm::mat4 MVP;
+extern glm::mat4 scaledMVP;
+
+extern glm::mat4 centreTransfromation;
+
 #endif

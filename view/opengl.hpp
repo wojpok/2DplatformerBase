@@ -38,11 +38,12 @@ namespace view {
 	
 	// shape class - provides buffers with mesh UVs and Vertices
 	class shape {
-	public:
+	private:
 		GLuint vertexBuffer;
 		GLuint uvBuffer;
 		int bufferSize;	
-	
+		
+	public:
 		shape(GLuint vb, GLuint ub, int bs);
 		void draw();
 		void drawInstantiated(int count);

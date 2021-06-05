@@ -30,8 +30,9 @@ namespace obj {
 	};
 	
 	class staticAnimator : public animator {
-	public:
+	private:
 		UVoffset uv; 
+	public:
 		staticAnimator(UVoffset off);
 		~staticAnimator();
 		
@@ -40,9 +41,10 @@ namespace obj {
 	};
 	
 	class synchronusLoopedAnimator : public animator {
-	public:
+	private:
 		UVoffset* uv; 
 		int l;
+	public:
 		synchronusLoopedAnimator(UVoffset* t, int len);
 		~synchronusLoopedAnimator();
 		
@@ -51,9 +53,10 @@ namespace obj {
 	};
 	
 	class multiStableAnimator : public animator {
-	public:
+	private:
 		UVoffset* uv; 
 		int l;
+	public:
 		multiStableAnimator(UVoffset* t, int len);
 		~multiStableAnimator();
 		

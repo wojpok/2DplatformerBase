@@ -14,9 +14,15 @@
 
 #include "chunk.hpp"
 
+#include "../globals.hpp"
+
+
 namespace con {
 	
-	 const int chunk::dimensions = 128;
+	const int chunk::dimensions = 128;
+	
+	view::shape * chunk::tileMesh = NULL;
+	view::shader * chunk::blockShader = NULL;
 	
 	chunk* curr = NULL;
 	int cX = 0;
@@ -89,6 +95,26 @@ namespace con {
 		
 		glVertexAttribDivisor(4, 1);    
 	}
+	
+	void chunk::drawAll() {
+		blockShader->useProgram();	
+		blockShader->bindMVP(scaledMVP);
+		blockShader->bindPos(ltCorner);
+		blockShader->bindTexture(obj::textureAtlas);
+		
+		
+		GLuint time = glGetUniformLocation(blockShader->Shader, "time");
+		glUniform1f(time, glfwGetTime());
+		
+		dynamicState();
+		
+		updateUVs();
+		enableBuffers();
+		tileMesh->drawInstantiated(dimensions*dimensions);
+		ch->disableBuffers();
+		
+	}
+	
 	
 	void chunk::disableBuffers() {
 		glDisableVertexAttribArray(3);

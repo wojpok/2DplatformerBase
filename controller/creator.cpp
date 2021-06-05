@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
-//#include "view/opengl.hpp"
+#include "../view/opengl.hpp"
 //#include "view/shaders.hpp"
 #include "../blocks/blocks.hpp"
 #include "../blocks/animators.hpp"

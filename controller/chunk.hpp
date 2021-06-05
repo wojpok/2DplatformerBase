@@ -14,21 +14,22 @@ namespace con {
 	class chunk {
 	public:
 		static const int dimensions;
+		
+	private:
 		static glm::vec3* offsets;
 		static GLuint offsetBuffer;
-		
-		static view::shape *tileMesh;
-		static view::shader *blockShader;
 		
 		uint8_t *atlasUVs;
 		GLuint UVsBuffer;
 		
-		chunk();
-		
 		obj::block** blocks;
-		
 		glm::mat4 ltCorner;
 		
+	public:
+		static view::shape *tileMesh;
+		static view::shader *blockShader;
+		
+		chunk();
 		void updateUVs();
 		void intervalState();
 		void dynamicState();
@@ -47,6 +48,7 @@ namespace con {
 		
 		//instanced draw
 		void enableBuffers();
+		void drawAll();
 		void disableBuffers();
 	};
 	
