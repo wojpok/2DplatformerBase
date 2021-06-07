@@ -1,19 +1,6 @@
-#include <iostream>
-#include <cstdint>
-#include <cstring>
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
-
-#include "../view/opengl.hpp"
-//#include "view/shaders.hpp"
-#include "../blocks/blocks.hpp"
-#include "../blocks/animators.hpp"
-
-#include "chunk.hpp"
+#define DEPS
+#define BLOCKS
+#include "../experimentalHeader.h"
 
 namespace con {
 	

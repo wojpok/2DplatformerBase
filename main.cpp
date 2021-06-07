@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <cstdlib>
 #include <cstdint>
 
@@ -14,7 +14,15 @@
 #include "controller/chunk.hpp"
 #include "controller/player.hpp"
 
-#include "globals.hpp"
+#include "globals.hpp"*/
+
+#define DEPS
+#define VIEW
+#define BLOCKS
+#define ANIM
+#define CHUNK
+#define PLAYER
+#include "experimentalHeader.h"
 
 con::chunk *ch;
 
@@ -22,6 +30,11 @@ float blockScale = 0.5f;
 glm::mat4 scaledMVP;
 glm::mat4 MVP;
 glm::mat4 centreTransfromation;
+
+int windowHeight = 1600;
+int windowWidth = 1200;
+
+
 // Function called once every second, no need to call this more frequently
 void mainloop() {
 	ch->intervalState();

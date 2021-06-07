@@ -1,14 +1,8 @@
-#include <iostream>
-#include <cstdint>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
-
-#include "../view/opengl.hpp"
-#include "blocks.hpp"
-#include "animators.hpp"
+#define DEPS
+#define VIEW
+#define BLOCKS
+#define ANIM
+#include "../experimentalHeader.h"
 
 namespace obj {
 	// Animator with single image

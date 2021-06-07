@@ -1,17 +1,8 @@
-#include <cstdio>
-#include <cstdlib>
+#define DEPS
+#define VIEW
+#include "../experimentalHeader.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 GLFWwindow* window;
-
-// Include GLM
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
-
-
-#include "opengl.hpp"
 
 namespace view {
 	GLFWwindow* window;
@@ -32,7 +23,7 @@ namespace view {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		// Open a window and create its OpenGL context
-		window = glfwCreateWindow( 1024, 768, "2Dplatformer", NULL, NULL);
+		window = glfwCreateWindow( windowHeight,  windowWidth, "2Dplatformer", NULL, NULL);
 		if( window == NULL ){
 			fprintf( stderr, "Failed to open GLFW window.\n" );
 			getchar();
@@ -54,7 +45,7 @@ namespace view {
 		//glfwSetMouseButtonCallback(window, mouse_callback);
 		
 		glfwPollEvents();
-		glfwSetCursorPos(window, 1024/2, 768/2);
+		glfwSetCursorPos(window, windowWidth/2, windowHeight/2);
 
 		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 		

@@ -1,23 +1,6 @@
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <sstream>
-
-#include <stdlib.h>
-#include <string.h>
-
-#include <GL/glew.h>
-
-
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include "opengl.hpp"
+#define DEPS
+#define VIEW
+#include "../experimentalHeader.h"
 
 /*
  * 
@@ -88,13 +71,13 @@ namespace view {
 		glfwGetCursorPos(window, &xpos, &ypos);		
 		
 		// Reset mouse position for next frame
-		glfwSetCursorPos(window, 1024/2, 768/2); 
+		glfwSetCursorPos(window, windowWidth/2, windowHeight/2); 
 		
 		
 		
 		// Compute new orientation
-		horizontalAngle += mouseSpeed * float(1024/2 - xpos );
-		verticalAngle   += mouseSpeed * float( 768/2 - ypos );
+		horizontalAngle += mouseSpeed * float(windowWidth/2 - xpos );
+		verticalAngle   += mouseSpeed * float(windowHeight/2 - ypos );
 
 		// Direction : Spherical coordinates to Cartesian coordinates conversion
 		glm::vec3 direction(
