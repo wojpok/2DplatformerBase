@@ -51,10 +51,6 @@ namespace con {
 		void drawAll();
 		void disableBuffers();
 	};
-	
-	extern chunk* curr;
-	extern int cX;
-	extern int cY;
 }
 
 #endif

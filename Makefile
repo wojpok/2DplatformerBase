@@ -5,7 +5,7 @@ LFLAGS = -lm -lGL -lGLU -lglut -lglfw -lGLEW
 NAME = demo
 
 SRC =  main.cpp blocks/blocks.cpp view/opengl.cpp view/loader.cpp view/frame.cpp blocks/animators.cpp controller/chunk.cpp controller/creator.cpp controller/player.cpp
-DEPS = blocks/blocks.hpp view/opengl.hpp blocks/animators.hpp controller/chunk.hpp controller/player.hpp globals.hpp
+DEPS = blocks/blocks.hpp view/opengl.hpp blocks/animators.hpp controller/chunk.hpp controller/player.hpp experimentalHeader.hpp
 # nazwy wszystkich plikow zrodlowych
 OBJS = main.o blocks/blocks.o view/opengl.o view/loader.o view/frame.o blocks/animators.o controller/chunk.o controller/creator.o controller/player.o 
 # nazwy wszystkich modulow

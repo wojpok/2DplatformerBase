@@ -1,3 +1,4 @@
+#define DEPS
 #define VIEW
 #define BLOCKS
 #define CHUNK

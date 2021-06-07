@@ -14,13 +14,21 @@
 #endif
 
 #ifdef VIEW
+	namespace view {
+		extern GLFWwindow* window;
+		extern float deltaTime;
+		extern float frameL;
+		extern int frameCnt;
+		extern int blockInd;
+		
+	}
 	#include "view/opengl.hpp" 
 	
-	extern GLFWwindow* window;
-	extern float deltaTime;
-	extern float frameL;
-	extern int frameCnt;
-	extern int blockInd;
+	//global instance of only block needed right now
+	namespace view {
+		extern shape* block;
+	}
+	
 #endif
 
 #ifdef BLOCKS
@@ -29,11 +37,21 @@
 
 #ifdef ANIM
 	#include "blocks/animators.hpp"
+
+	namespace obj {
+		extern GLuint textureAtlas;
+	}
 #endif
 
 #ifdef CHUNK
 	#include "controller/chunk.hpp"
-	
+
+	namespace con {
+		extern chunk* curr;
+		extern int cX;
+		extern int cY;
+	}
+
 	extern con::chunk *ch;
 #endif
 

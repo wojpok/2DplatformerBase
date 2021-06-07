@@ -3,13 +3,6 @@
 
 namespace view {
 	
-	//global variabeles
-	extern GLFWwindow* window;
-	extern float deltaTime;
-	extern float frameL;
-	extern int frameCnt;
-	extern int blockInd;
-	
 	//wrapper functions for onpegl. It helps keep main.cpp as tidy as possible
 	void createContext();
 	void clearFrame();
@@ -50,8 +43,6 @@ namespace view {
 		~shape();
 	};
 	
-	//global instance of only block needed right now
-	extern shape* block;
 	
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();

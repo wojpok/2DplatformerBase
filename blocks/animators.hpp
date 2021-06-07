@@ -12,9 +12,6 @@
 
 namespace obj {
 	void initStatics();
-	
-	extern GLuint textureAtlas;
-	
 	class block;
 
 	typedef struct {
