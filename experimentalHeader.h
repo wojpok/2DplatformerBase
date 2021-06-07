@@ -1,6 +1,11 @@
 #ifndef experimentalHeader
 #define experimantalHeader
 
+// changing macros require project rebuilding
+#if 1
+	#define NO_CAM_MOVEMENT
+#endif
+
 #ifdef DEPS
 	#include <iostream>
 	#include <cstdlib>
@@ -59,15 +64,15 @@
 	#include "controller/player.hpp"
 #endif
 
-extern float blockScale;
+	extern float blockScale;
 
-extern glm::mat4 MVP;
-extern glm::mat4 scaledMVP;
+	extern glm::mat4 MVP;
+	extern glm::mat4 scaledMVP;
 
-extern glm::mat4 centreTransfromation;
+	extern glm::mat4 centreTransfromation;
 
-extern int windowHeight;
-extern int windowWidth;
+	extern int windowHeight;
+	extern int windowWidth;
 
 
 #endif

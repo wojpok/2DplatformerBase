@@ -58,12 +58,14 @@ namespace con {
 			worldspacePos[3][2] -= deltaDist;
 		}
 		
-		if (glfwGetKey( view::window, GLFW_KEY_SPACE ) == GLFW_PRESS){
+		/*if (glfwGetKey( view::window, GLFW_KEY_SPACE ) == GLFW_PRESS){
 			int collisionX = ((int)floor((worldspacePos[3][2] + 0.5f)/blockScale));
 			int collisionY = ((int)floor((worldspacePos[3][1] + 0.5f)/blockScale));
 			//std::cout<<collisionX<<" "<<collisionY<<std::endl;
 			ch->setBlock(collisionX, collisionY, con::createNewBlock( view::blockInd));
-		}
+		}*/
+		//worldspacePos = glm::mat4(1);
+		centreTransfromation = worldspacePos;
 	}
 	
 	

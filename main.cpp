@@ -8,13 +8,13 @@
 
 con::chunk *ch;
 
-float blockScale = 0.5f;
+float blockScale = 1.f;
 glm::mat4 scaledMVP;
 glm::mat4 MVP;
 glm::mat4 centreTransfromation;
 
-int windowHeight = 1600;
-int windowWidth = 1200;
+int windowHeight = 1200;
+int windowWidth = 900;
 
 
 // Function called once every second, no need to call this more frequently
@@ -26,16 +26,18 @@ void mainloop() {
 //Function called on mouse events - in this example it spawns blocks
 void mousePress(GLFWwindow* window, int button, int action, int mods) {
 	
-	/*if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		double xpos = 512 , ypos = 384;
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+		double xpos, ypos;
 		glfwGetCursorPos(view::window, &xpos, &ypos);
 		
-		if(xpos >= 141 && xpos <= 800 && ypos <= 755 && ypos >= 97) {
-			ch->setBlock(((xpos-141)*8)/((float)(800-141)),
-						 8-(((ypos-97)*8)/((float)(755-97))),
-						 con::createNewBlock(view::blockInd));
-		}
-	}*/
+		/*std::cout<<xpos<<" "<<ypos<<" "
+			<<floor(centreTransfromation[3][2] + (xpos-600)/50.f)<<" "
+			<<floor(centreTransfromation[3][1] - (ypos-450)/50.f)<<std::endl;*/
+		//On screen there are currenctly 25x19 blocks
+		ch->setBlock( floor((centreTransfromation[3][2] + (xpos-600)/100.f)),
+					  floor((centreTransfromation[3][1] - (ypos-450)/100.f)),
+					  con::createNewBlock(view::blockInd));
+	}
 }
 
 int main() {

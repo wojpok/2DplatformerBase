@@ -70,15 +70,15 @@ namespace view {
 		
 		glfwGetCursorPos(window, &xpos, &ypos);		
 		
-		// Reset mouse position for next frame
-		glfwSetCursorPos(window, windowWidth/2, windowHeight/2); 
+		#ifndef NO_CAM_MOVEMENT
+			// Reset mouse position for next frame
+			glfwSetCursorPos(window, windowWidth/2, windowHeight/2); 		
+			
+			// Compute new orientation
+			horizontalAngle += mouseSpeed * float(windowWidth/2 - xpos );
+			verticalAngle   += mouseSpeed * float(windowHeight/2 - ypos );
+		#endif
 		
-		
-		
-		// Compute new orientation
-		horizontalAngle += mouseSpeed * float(windowWidth/2 - xpos );
-		verticalAngle   += mouseSpeed * float(windowHeight/2 - ypos );
-
 		// Direction : Spherical coordinates to Cartesian coordinates conversion
 		glm::vec3 direction(
 			cos(verticalAngle) * sin(horizontalAngle), 
