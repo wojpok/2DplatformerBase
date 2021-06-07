@@ -105,8 +105,19 @@ namespace obj {
 	animator* boiler::gAnim() {return this->anim;}
 	block* boiler::createInstance( ) {return new boiler();}
 	
+	//
+	// =================== PLANKING BLOCK ==========================
+	//
+	animator* planking::anim = new staticAnimator({3, 0});
+	animator* planking::gAnim() {return this->anim;}
+	block* planking::createInstance( ) {return new planking();}
 	
-
+	//
+	// =================== BRICK BLOCK ==========================
+	//
+	animator* bricks::anim = new staticAnimator({1, 3});
+	animator* bricks::gAnim() {return this->anim;}
+	block* bricks::createInstance( ) {return new bricks();}
 	
 	
 	

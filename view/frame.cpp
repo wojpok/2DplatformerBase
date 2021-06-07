@@ -137,6 +137,12 @@ namespace view {
 		if (glfwGetKey( window, GLFW_KEY_8 ) == GLFW_PRESS){
 			blockInd = 7; std::cout<<"Boiler block"<<std::endl;
 		}
+		if (glfwGetKey( window, GLFW_KEY_9 ) == GLFW_PRESS){
+			blockInd = 8; std::cout<<"Planking block"<<std::endl;
+		}
+		if (glfwGetKey( window, GLFW_KEY_0 ) == GLFW_PRESS){
+			blockInd = 9; std::cout<<"Brick block"<<std::endl;
+		}
 
 		float FoV = initialFoV;//  - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
 

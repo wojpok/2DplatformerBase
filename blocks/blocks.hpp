@@ -99,6 +99,24 @@ namespace obj {
 		static animator* anim;
 		animator* gAnim();
 	};
+	
+	class planking : public block {
+	public:	
+		static block* createInstance();
+		
+		const uint8_t id = 8;
+		static animator* anim;
+		animator* gAnim();
+	};
+	
+	class bricks : public block {
+	public:	
+		static block* createInstance();
+		
+		const uint8_t id = 9;
+		static animator* anim;
+		animator* gAnim();
+	};
 }
 
 #endif

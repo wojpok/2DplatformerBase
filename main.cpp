@@ -66,8 +66,8 @@ int main() {
 	
 	//demo map
 	int map[64] = {
-		1, 0, 0 ,0, 0, 5, 5, 1,
-		0, 0, 4 ,5, 0, 5, 1, 2,
+		1, 0, 0 ,0, 0, 8, 9, 9,
+		5, 0, 4 ,5, 0, 8, 8, 2,
 		6, 7, 1 ,1, 6, 1, 2, 2,
 		7, 2, 2 ,2, 1, 2, 2, 3,
 		2, 2, 2 ,2, 2, 2, 3, 3,
@@ -87,7 +87,7 @@ int main() {
 	for(int i = 0 ; i < con::chunk::dimensions; i++) {
 		for(int f = 0; f < con::chunk::dimensions; f++) {
 			if(i > 16 && f > 16)
-				ch->setBlock(f, i, con::createNewBlock(rand()%8));
+				ch->setBlock(f, i, con::createNewBlock(rand()%10));
 		}
 	}
 	

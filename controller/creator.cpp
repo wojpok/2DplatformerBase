@@ -13,7 +13,9 @@ namespace con {
 		obj::leaf::createInstance, 
 		obj::wood::createInstance, //5
 		obj::lamp::createInstance,
-		obj::boiler::createInstance  //boiler maker /s
+		obj::boiler::createInstance,  //boiler maker /s
+		obj::planking::createInstance,
+		obj::bricks::createInstance
 	}; 
 	
 	obj::block* createNewBlock(int id) {
