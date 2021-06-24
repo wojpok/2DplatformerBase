@@ -2,9 +2,13 @@
 #define experimantalHeader
 
 // changing macros require project rebuilding
-#if 1
+#if 0
 	#define NO_CAM_MOVEMENT
 #endif
+
+#define CHUNK_SIZE 4
+#define CHUNK_LOG_SIZE 2
+#define __chunkIndexer(x, y) ((y<<CHUNK_LOG_SIZE)|x)
 
 #ifdef DEPS
 	#include <iostream>
@@ -58,6 +62,13 @@
 	}
 
 	extern con::chunk *ch;
+#endif
+
+
+#ifdef WORLD
+	#include "controller/worldspace.h"
+	
+	extern con::worldspace *world;
 #endif
 
 #ifdef PLAYER

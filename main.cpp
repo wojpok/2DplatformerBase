@@ -3,10 +3,12 @@
 #define BLOCKS
 #define ANIM
 #define CHUNK
+#define WORLD
 #define PLAYER
 #include "experimentalHeader.h"
 
 con::chunk *ch;
+con::worldspace *world;
 
 float blockScale = 1.f;
 glm::mat4 scaledMVP;
@@ -62,7 +64,16 @@ int main() {
 	con::chunk::tileMesh = view::block;
 	con::chunk::blockShader = basic;
 	
+	world = new con::worldspace();
+	
 	ch = new con::chunk();
+	
+	for (int i = 0; i < con::worldspace::dimensionsX; i++) {
+		for (int j = 0; j < con::worldspace::dimensionsY; j++) {
+			world->setChunk(i, j, new con::chunk());
+		}
+	}
+	
 	
 	//demo map
 	int map[64] = {
@@ -79,15 +90,18 @@ int main() {
 	
 	for(int i = 0 ; i < 8; i++) {
 		for(int f = 0; f < 8; f++) {
-			ch->setBlock(f, i, con::createNewBlock(map[(7 - i)* 8+f]));
+			world->getChunk(0,0)->setBlock(f, i, con::createNewBlock(map[(7 - i)* 8+f]));
 			
 		}
 	}
 	
 	for(int i = 0 ; i < con::chunk::dimensions; i++) {
 		for(int f = 0; f < con::chunk::dimensions; f++) {
-			if(i > 16 && f > 16)
-				ch->setBlock(f, i, con::createNewBlock(rand()%10));
+			for (int h = 0; h < con::worldspace::dimensionsX; h++) {
+				for (int z = 0; z < con::worldspace::dimensionsY; z++) {
+					world->getChunk(h,z)->setBlock(f, i, con::createNewBlock(rand()%10));
+				}
+			}	
 		}
 	}
 	
@@ -120,7 +134,13 @@ int main() {
 
 		scaledMVP = glm::scale(MVP, glm::vec3(blockScale, blockScale, blockScale));
 		
+		/*ch->enableBuffers();
 		ch->drawAll();
+		ch->disableBuffers();*/
+		world->drawAll(
+						(((int)floor(centreTransfromation[3][2]))>>CHUNK_LOG_SIZE)-5, 
+						(((int)floor(centreTransfromation[3][1]))>>CHUNK_LOG_SIZE)-5,
+						 11, 11);
 		
 		ply->draw(MVP);
 		

@@ -75,7 +75,7 @@ namespace view {
 			 0, 1, -1,
 		};*/
 		
-		static const GLfloat g_vertex_buffer_data[] = { 
+		/*static const GLfloat g_vertex_buffer_data[] = { 
 			 0, 0, 1,
 			 0, 1, 0,
 			 0, 0, 0,
@@ -83,6 +83,24 @@ namespace view {
 			 0, 1, 1,
 			 0, 1, 0,
 		};
+		*/
+		static const GLfloat g_vertex_buffer_data[] = { 
+			 0, -0.5, 0.5,
+			 0, 0.5, -0.5,
+			 0, -0.5, -0.5,
+			 0, -0.5, 0.5,
+			 0, 0.5, 0.5,
+			 0, 0.5, -0.5,
+		};
+		
+		/*static const GLfloat g_vertex_buffer_data[] = { 
+			 0, -0.4, 0.5,
+			 0, 0.4, -0.5,
+			 0, -0.4, -0.5,
+			 0, -0.4, 0.5,
+			 0, 0.4, 0.5,
+			 0, 0.4, -0.5,
+		};*/
 		
 		glGenBuffers(1, &billboard_vertex_buffer);
 		glBindBuffer(GL_ARRAY_BUFFER, billboard_vertex_buffer);
@@ -109,6 +127,15 @@ namespace view {
 			 1- borderUV, 1- borderUV,
 			 0+ borderUV, 1- borderUV
 		};
+		
+		/*static const GLfloat g_uv_buffer_data[] = { 
+			 0.5f  - borderUV, -0.5f + borderUV,
+			 -0.5f + borderUV, 0.5f  - borderUV,
+			 -0.5f + borderUV, -0.5f + borderUV,
+			 0.5f  - borderUV, -0.5f + borderUV,
+			 0.5f  - borderUV, 0.5f  - borderUV,
+			 -0.5f + borderUV, 0.5f  - borderUV
+		};*/
 		
 		glGenBuffers(1, &billboard_uv_buffer);
 		glBindBuffer(GL_ARRAY_BUFFER, billboard_uv_buffer);

@@ -48,7 +48,7 @@ namespace view {
 	
 	void computeMatricesFromInputs(glm::mat4 camCenter){
 		
-		glm::vec3 position = glm::vec3(camCenter[3][0]-10, camCenter[3][1], camCenter[3][2]);
+		glm::vec3 position = glm::vec3(camCenter[3][0]-30, camCenter[3][1], camCenter[3][2]);
 
 		// glfwGetTime is called only once, the first time this function is called
 		static double lastTime = glfwGetTime();

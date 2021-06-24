@@ -9,7 +9,7 @@
 
 namespace con {
 	
-	const int chunk::dimensions = 128;
+	const int chunk::dimensions = CHUNK_SIZE;
 	
 	view::shape * chunk::tileMesh = NULL;
 	view::shader * chunk::blockShader = NULL;
@@ -57,6 +57,15 @@ namespace con {
 	
 	//buffer providing functions
 	void chunk::enableBuffers() {
+		blockShader->useProgram();	
+		blockShader->bindMVP(scaledMVP);
+		
+		blockShader->bindTexture(obj::textureAtlas);
+		
+		GLuint time = glGetUniformLocation(blockShader->Shader, "time");
+		glUniform1f(time, glfwGetTime());
+		
+		
 		glEnableVertexAttribArray(3);
 		glBindBuffer(GL_ARRAY_BUFFER, offsetBuffer);
 		glVertexAttribPointer(
@@ -70,7 +79,15 @@ namespace con {
 		
 		glVertexAttribDivisor(3, 1); 
 		
+	}
+	
+	void chunk::drawAll() {
+		blockShader->bindPos(ltCorner);
 		
+		dynamicState();
+		updateUVs();
+		
+			
 		
 		glEnableVertexAttribArray(4);
 		glBindBuffer(GL_ARRAY_BUFFER, UVsBuffer);
@@ -84,31 +101,18 @@ namespace con {
 		);
 		
 		glVertexAttribDivisor(4, 1);    
-	}
-	
-	void chunk::drawAll() {
-		blockShader->useProgram();	
-		blockShader->bindMVP(scaledMVP);
-		blockShader->bindPos(ltCorner);
-		blockShader->bindTexture(obj::textureAtlas);
 		
-		
-		GLuint time = glGetUniformLocation(blockShader->Shader, "time");
-		glUniform1f(time, glfwGetTime());
-		
-		dynamicState();
-		
-		updateUVs();
-		enableBuffers();
+		//enableBuffers();
 		tileMesh->drawInstantiated(dimensions*dimensions);
-		ch->disableBuffers();
+		//disableBuffers();
 		
+		glDisableVertexAttribArray(4);
 	}
 	
 	
 	void chunk::disableBuffers() {
 		glDisableVertexAttribArray(3);
-		glDisableVertexAttribArray(4);
+		
 	}
 	
 	//iterating through all blocks and collecting needed uvs
@@ -121,8 +125,8 @@ namespace con {
 				if((c = blocks[cord]) != NULL ) {
 					
 					obj::UVoffset off = c->gAnim()->getTexture(c);
-					atlasUVs[cord*2 ] = off.UVsx;
-					atlasUVs[cord*2 +1] = off.UVsy;
+					atlasUVs[(cord<<1) ] = off.UVsx;
+					atlasUVs[(cord<<1)|1] = off.UVsy;
 				}	
 			}
 		}
@@ -163,7 +167,7 @@ namespace con {
 	void chunk::setBlock(int x, int y, obj::block* inst) {
 		// when inst == NULL basically is setBlock == removeBlock
 		if(x >= 0 && x < dimensions && y >= 0 && y < dimensions) {
-			int cord = y*dimensions+x;
+			int cord = __chunkIndexer(x, y);
 			if(blocks[cord] != NULL) {
 				delete blocks[cord];
 				atlasUVs[cord*2 ] = 0;
@@ -181,7 +185,7 @@ namespace con {
 			curr = this;
 			cX = x;
 			cY = y;
-			return blocks[(y)*dimensions +(x)];
+			return blocks[__chunkIndexer(x, y)];
 		}
 		
 		return NULL;
@@ -189,7 +193,7 @@ namespace con {
 	
 	obj::block* chunk::asyncGetBlock(int x, int y) {
 		if(x < 0 || y < 0 || x >= dimensions || y >= dimensions) return NULL;
-		return blocks[(y)*dimensions +(x)];
+		return blocks[__chunkIndexer(x, y)];
 	}
 	
 	

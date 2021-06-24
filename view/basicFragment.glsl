@@ -34,7 +34,7 @@ void main(){
 		color = vec4(0,0,0,0);
 	}
 	else {
-	vec2 UVs = 0.25*(UV + vec2(ou.y, ou.x));
+	vec2 UVs = 0.25*(UV + /*vec2(0.5, 0.5)*/ vec2(ou.y, ou.x));
 	
 	//float it = iterateMandelbrot(vec2((worldOffset.z-8)/8+0.25*UV.x, (worldOffset.y-8)/8+0.25*UV.y));
 	

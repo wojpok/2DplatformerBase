@@ -47,9 +47,9 @@ namespace con {
 		obj::block* asyncGetBlock(int x, int y);
 		
 		//instanced draw
-		void enableBuffers();
+		static void enableBuffers();
 		void drawAll();
-		void disableBuffers();
+		static void disableBuffers();
 	};
 }
 
