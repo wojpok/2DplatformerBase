@@ -1,2 +1,2 @@
 # 2DplatformerBase
-An OpenGL project focused on preparing flexible object-oriented base for 2D game
+An OpenGL project focused on preparing flexible object-oriented base for a 2D game
